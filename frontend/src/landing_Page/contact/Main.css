@@ -1,0 +1,95 @@
+/* ---------- Root tokens ---------- */
+:root {
+  --bg-grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --card-bg: rgba(255, 255, 255, 0.22);
+  --card-border: rgba(255, 255, 255, 0.2);
+  --shadow: 0 8px 32px rgba(31, 38, 135, 0.35);
+  --text-dark: #222;
+  --accent: #667eea;
+  --radius: 24px;
+}
+
+/* ---------- Full-width wrapper ---------- */
+.contact-wrapper {
+  min-height: 100vh;
+  background: var(--bg-grad);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+/* ---------- Card: 99 % width, glass-morphism ---------- */
+.contact-card {
+  width: 99%;
+  max-width: 1100px;
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 60px 50px;
+}
+
+/* ---------- Header ---------- */
+.contact-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.contact-header h2 {
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+}
+
+.contact-header p {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--text-dark);
+  opacity: 0.85;
+}
+
+/* ---------- Inputs ---------- */
+.form-control-lg {
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-size: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.form-control-lg:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+}
+
+/* ---------- Gradient button ---------- */
+.btn-gradient {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 14px 48px;
+  border: none;
+  border-radius: 50px;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(102, 126, 234, 0.45);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 576px) {
+  .contact-card {
+    padding: 40px 25px;
+  }
+  .contact-header h2 {
+    font-size: 2.2rem;
+  }
+}

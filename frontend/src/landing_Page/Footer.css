@@ -1,0 +1,136 @@
+/* Footer.css – modern typography + layout */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root{
+  --accent:#ff6b6b;
+  --dark:#111;
+  --light:#fff;
+  --font:'Poppins', sans-serif;
+}
+.footer-push {
+  flex: 1 0 auto;          /* pushes footer down without touching other pages */
+}
+
+.footer{
+  background:var(--dark);
+  color:var(--light);
+  font-family:var(--font);
+  padding:3rem 0 1rem;
+    
+ 
+    
+}
+
+.footer-container{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 1.5rem;
+  display:grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap:2rem;
+  align-items:start;
+}
+
+/* Brand column */
+.footer-title{
+  font-size:1.75rem;
+  font-weight:600;
+  margin:0 0 .5rem;
+  color:var(--accent);
+  letter-spacing:.5px;
+}
+.footer-tagline{
+  font-size:.9rem;
+  line-height:1.7;
+  max-width:420px;
+  margin:0;
+  color:#ccc;
+}
+.footer-tagline strong{color:var(--light);}
+
+/* Links column */
+.footer-links h5{
+  margin:0 0 .75rem;
+  font-size:1.1rem;
+  color:var(--accent);
+}
+.footer-links ul{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+.footer-links li{margin:.35rem 0;}
+.footer-links a{
+  color:#bbb;
+  text-decoration:none;
+  font-size:.9rem;
+  transition:.2s;
+}
+.footer-links a:hover{color:var(--accent);}
+
+/* Right column */
+.footer-right{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:1rem;
+}
+.footer-btn{
+  background:var(--accent);
+  color:var(--light);
+  padding:.65rem 2rem;
+  border-radius:50px;
+  font-size:.9rem;
+  font-weight:600;
+  text-decoration:none;
+  transition:.2s;
+}
+.footer-btn:hover{background:#ff5252;}
+
+.footer-socials{
+  display:flex;
+  gap:.75rem;
+}
+.footer-socials a{
+  display:grid;
+  place-items:center;
+  width:36px;
+  height:36px;
+  background:#222;
+  color:var(--light);
+  border-radius:50%;
+  font-size:1.1rem;
+  transition:.2s;
+ text-decoration: none;
+}
+.footer-socials a:hover{background:var(--accent);}
+
+/* Bottom stripe */
+.footer-bottom{
+  border-top:1px solid #222;
+  margin-top:2rem;
+  padding:1rem 0 0;
+  text-align:center;
+  font-size:.8rem;
+  color:#888;
+}
+
+/* Responsive */
+@media(max-width:992px){
+  .footer-container{
+    grid-template-columns:1fr 1fr;
+    text-align:center;
+  }
+  .footer-right{align-items:center;}
+}
+@media(max-width:576px){
+  .footer-container{
+    grid-template-columns:1fr;
+    gap:1.5rem;
+  }
+  .footer-bottom p{font-size:.75rem;}
+}
+
+.footer-spacer {
+  flex: 1 0 auto;   /* pushes everything below it to the bottom */
+}

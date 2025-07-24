@@ -1,0 +1,88 @@
+.support-table-wrapper {
+  padding: 20px;
+  font-family: system-ui, sans-serif;
+}
+
+.support-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.support-table thead {
+  background: #1976d2;
+  color: #fff;
+}
+
+.support-table th,
+.support-table td {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.support-table tbody tr:nth-child(odd) {
+  background: #f7f9fc;
+}
+
+.support-table tbody tr:hover {
+  background: #eef2f7;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.resolved {
+  background: #e6f7ed;
+  color: #0f5132;
+}
+
+.status-badge.pending {
+  background: #fff3cd;
+  color: #664d03;
+}
+
+.btn {
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn + .btn {
+  margin-left: 6px;
+}
+
+.btn.resolve {
+  background: #198754;
+  color: #fff;
+}
+
+.btn.pending {
+  background: #ffc107;
+  color: #212529;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.support-table td:nth-child(4) {
+  max-width: 350px !important;
+  max-height: 100px !important;
+  overflow-y: auto !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  display: block !important;        
+}
