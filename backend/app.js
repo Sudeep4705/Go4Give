@@ -20,6 +20,9 @@ const Fundraiser = require("./model/fundraiser/fundraiser");
 const instance =  require('./razorpay')
 const Donotion = require("./model/donation/donor.js"); 
 const Donation = require("./model/donation/donor.js");
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -191,15 +194,15 @@ res.json(data)
 
   // payment
 
-app.post("/donate", async (req, res) => {
+app.post("/donation/donate",authenticateUser, async (req, res) => {
   try {
     const { donorName, email, phone, donationAmount } = req.body;
 
     // 1. Create order with Razorpay
     const options = {
       amount: donationAmount * 100, // amount in paise
-      currency: "INR"
-    };
+      currency: "INR",
+};
     const order = await instance.orders.create(options);
 
     // 2. Save donor info with orderId and status
@@ -209,7 +212,8 @@ app.post("/donate", async (req, res) => {
       phone,
       donationAmount,
       orderId: order.id,
-      status: "pending"
+      status: "pending",
+   
     });
     await donation.save();
 
@@ -234,15 +238,19 @@ app.post("/donate", async (req, res) => {
   //   })
   // })
 
-  app.post("/verify-payment", async (req, res) => {
+  app.post("/donation/verifypayment", authenticateUser,async (req, res) => {
   try {
     const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = req.body;
 
     // 1. Create expected signature using your Razorpay Key Secret
-    const hmac = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET);
+    const hmac = crypto.createHmac("sha256", process.env.RAZORPAY_API_SECRET); //Hash-based Message Authentication Code.
+
+
     hmac.update(razorpay_order_id + "|" + razorpay_payment_id);
     const generated_signature = hmac.digest("hex");
 
+    console.log("Generated signature:", generated_signature);
+    console.log("Received signature:", razorpay_signature);
     // 2. Compare signatures
     if (generated_signature === razorpay_signature) {
       // Payment is authentic → update donor record
@@ -267,6 +275,72 @@ app.post("/donate", async (req, res) => {
   } catch (error) {
     console.error("Verification error:", error);
     res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+// donarslist
+
+app.get("/donorslist",async(req,res)=>{
+  let data  = await Donation.find({});
+  res.json(data)
+})
+
+// sendemail
+
+
+app.post("/sendreceipt", async (req, res) => {
+  const { donorName, email, donationAmount, orderId } = req.body;
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "go4give2002@gmail.com", // your Gmail
+        pass: "exoj ewqp ycve okun",    // create App Password (not your Gmail password)
+      },
+    });
+
+    const mailOptions = {
+      from: "go4give2002@gmail.com",
+      to: email,
+      subject: "Donation Receipt",
+     html: `
+  <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; background-color: #f9f9f9;">
+    <div style="text-align: center;">
+      <h1>Go4Give</h1>
+      <h2 style="color: #333;">Thank You for Your Generous Donation!</h2>
+    </div>
+    <p style="font-size: 16px; color: #555;">
+      Dear <strong>${donorName}</strong>,
+    </p>
+    <p style="font-size: 16px; color: #555;">
+      We’ve received your donation of <strong style="color: #2b7a2b;">₹${donationAmount}</strong>.  
+      Your contribution means the world to us and will help us continue our mission.
+    </p>
+    <div style="background: #ffffff; padding: 15px; border-radius: 5px; margin-top: 10px; border: 1px solid #ddd;">
+      <p style="margin: 0; font-size: 14px; color: #333;">
+        <strong>Order ID:</strong> ${orderId}
+      </p>
+      <p style="margin: 0; font-size: 14px; color: #333;">
+        <strong>Date:</strong> ${new Date().toLocaleString()}
+      </p>
+    </div>
+    <p style="margin-top: 20px; font-size: 14px; color: #777;">
+      If you have any questions, feel free to reply to this email.  
+      Thank you again for your incredible support!
+    </p>
+    <p style="text-align: center; margin-top: 20px;">
+      
+    </p>
+  </div>
+`,
+
+    };
+
+    await transporter.sendMail(mailOptions);
+    res.json({ success: true, message: "Receipt sent successfully" });
+  } catch (error) {
+    console.error("Email send error:", error);
+    res.status(500).json({ success: false, message: "Failed to send receipt" });
   }
 });
 
