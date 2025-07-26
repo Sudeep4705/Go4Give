@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Fundraiser.css"
 function Fundraiser(){
 
@@ -10,6 +11,11 @@ const handlechange = async()=>{
 let res = await axios.get("http://localhost:8000/fundraiser/show")
 setfunds(res.data)
 }
+
+  const navigate  =  useNavigate()
+  const handsubmit =()=>{
+navigate("/donation")
+  }
 useEffect(()=>{
 handlechange()
 })
@@ -26,7 +32,7 @@ handlechange()
       Rapid aid for flood, fire, cyclone and drought-affected communities.
       100 % transparent impact you can track in real time.
     </p>
-    <button className="env-hero__cta">Support Now</button>
+    <button className="env-hero__cta" onClick={handsubmit}>Support Now</button>
   </div>
 </section>
 
@@ -129,30 +135,11 @@ handlechange()
               <h5 className="f-card__title">{fund.cause}</h5>
               <p className="f-card__desc">{fund.description}</p>
 
-              {/* Progress Ring */}
-              <div className="progress-ring">
-                <svg viewBox="0 0 36 36">
-                  <path
-                    className="progress-ring__bg"
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  />
-                  <path
-                    className="progress-ring__circle"
-                    strokeDasharray={`${percent}, 100`}
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  />
-                  <text x="18" y="20.35" className="progress-ring__text">
-                    {percent}%
-                  </text>
-                </svg>
-              </div>
+            
 
-              <div className="f-card__stats">
-                <span>${raised.toLocaleString()}</span> /
-                <span>${goal.toLocaleString()}</span>
-              </div>
+              
 
-              <button className="f-card__btn">Donate</button>
+              <button className="f-card__btn" onClick={handsubmit}>Donate</button>
             </div>
           </div>
         </div>

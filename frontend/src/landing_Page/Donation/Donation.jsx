@@ -24,7 +24,7 @@ const [razorpay,setrazorpay] = useState({
 const handlesubmit = async (e) => {
   e.preventDefault();
   try {
-    let res = await axios.post("http://localhost:8000/donate", donation);
+    let res = await axios.post("http://localhost:8000/donation/donate", donation);
 
     if (res.data.success) {
       // Save orderId and key for checkout
@@ -37,7 +37,9 @@ const handlesubmit = async (e) => {
       openRazorpay(res.data.orderId, res.data.key, donation.donationAmount);
     }
   } catch (err) {
-    console.log(err);
+
+    
+    alert("Please login");
   }
 };
 
@@ -50,6 +52,8 @@ const openRazorpay = (orderId, key, amount) => {
     name: "Your Charity Name",
     description: "Donation Payment",
     order_id: orderId, // orderId from backend
+  
+  
     handler: function (response) {
       // Razorpay sends back payment details here
       setrazorpay({
@@ -59,7 +63,7 @@ const openRazorpay = (orderId, key, amount) => {
       });
 
       // Send these details to your backend for verification
-      axios.post("http://localhost:8000/verify-payment", {
+      axios.post("http://localhost:8000/donation/verifypayment", {
         razorpay_payment_id: response.razorpay_payment_id,
         razorpay_order_id: response.razorpay_order_id,
         razorpay_signature: response.razorpay_signature
@@ -67,6 +71,10 @@ const openRazorpay = (orderId, key, amount) => {
       .then(res => {
         if (res.data.success) {
           alert("Payment Successful!");
+          setDonation({donorName: "",
+    donationAmount: "",
+    email: "",
+    phone: "",})
         } else {
           alert("Payment verification failed!");
         }
