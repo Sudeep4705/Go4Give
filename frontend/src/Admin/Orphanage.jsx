@@ -56,7 +56,7 @@ function Orphanage() {
     formdata.append("video", video);
 
     try {
-      await axios.post("http://localhost:8000/add", formdata, {
+      await axios.post("http://localhost:8000/listing/add", formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

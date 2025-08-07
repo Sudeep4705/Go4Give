@@ -24,7 +24,7 @@ const handlelogin = async(e)=>{
     withCredentials: true,
   });
  if (res.data.success) {
-  alert("login Sucessfully Completed")
+  alert(res.data.message)
       setlogin({ username: "", password: "" });
       navigate("/");
     } else {

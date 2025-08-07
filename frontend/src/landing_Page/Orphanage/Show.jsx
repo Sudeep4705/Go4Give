@@ -8,13 +8,13 @@ function Show() {
   const [data, setdata] = useState(null);
 
   const navigate  =  useNavigate()
-  const handchange =()=>{
-navigate("/donation")
+  const handchange =(donationId)=>{
+  navigate(`/donation/${donationId}`);
   }
   
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/show/${id}`)
+      .get(`http://localhost:8000/listing/show/${id}`)
       .then((res) => setdata(res.data))
       .catch((error) => console.log(error));
   }, [id]);
@@ -199,7 +199,8 @@ navigate("/donation")
       }}
       onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
       onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
-      onClick={handchange}
+      onClick={() => handchange(data._id || id)}
+      
     >
        Donate Now
     </button>

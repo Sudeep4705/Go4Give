@@ -7,7 +7,7 @@ function Orphanage() {
 
   const handlechange = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/index");
+      const res = await axios.get("http://localhost:8000/listing/index");
       setData(res.data);
     } catch (error) {
       console.error("Error fetching orphanage data:", error);
@@ -81,14 +81,7 @@ function Orphanage() {
                       background: "linear-gradient(to bottom right, #f7f8fa, #dee2e6)",
                       transition: "transform 0.3s, box-shadow 0.3s",
                     }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "translateY(-10px)";
-                      e.currentTarget.style.boxShadow = "0 15px 30px rgba(0, 0, 0, 0.2)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = "translateY(0)";
-                      e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.1)";
-                    }}
+                 
                   >
                     <img
                       src={orphan.image?.url || "/images/default.jpg"}

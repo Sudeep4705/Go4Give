@@ -47,15 +47,20 @@ import AdminLayout from '../layouts/AdminLayout';
 import Home from './Admin/Home'
 import Feedback from './Admin/Feedback'
 import Donor from './Admin/Donor'
-import Report from './Admin/Report'
+
 import Orphanage from './Admin//Orphanage'
 import Orphan  from  './landing_Page/Orphanage/Orphans'
 import ShowPage from './landing_Page/Orphanage/Show';
 import Support from "./Admin/Support"
-import Fundraiser from './Admin/Fundrasier';
+
 import Blog from './landing_Page/Blog/Blog';
-import UserFundraiser from './landing_Page/Fund/Fundraiser'
+import UserFundraiser from './landing_Page/Fund/ShowFundraiser'
 import Donation from './landing_Page/Donation/Donation';
+import FundsDonation from './landing_Page/Fund/FundsDonation';
+import AddFundraiser from './Admin/AddFundrasier';
+import Fundraisers from './Admin/Fundraisers';
+import BlogDetail from './landing_Page/Blog/BlogDetails';
+import Chat from './landing_Page/chatbot/chatbot';
 
 
 
@@ -75,7 +80,12 @@ function App() {
           <Route path="show/:id" element={<ShowPage/>} />
           <Route path="blog" element={<Blog/>} />
           <Route path="fundraiser" element={<UserFundraiser/>} />
-          <Route path="donation" element={<Donation/>} />
+          <Route path="donation/:id" element={<Donation/>} />
+          <Route path="fund/:id" element={<FundsDonation/>} />
+          <Route path="blog/:id" element={<BlogDetail />} />
+          <Route path="chatbot" element={<Chat />} />
+
+
         </Route>
 
         
@@ -84,13 +94,11 @@ function App() {
         <Route path="home" element={<Home />} />
         <Route path="feedback" element={<Feedback/>} />
         <Route path="donors" element={<Donor/>} />
-        <Route path="report" element={<Report/>} />
+        <Route path="home" element={<Home/>} />
         <Route path="orphanage" element={<Orphanage/>} />
         <Route path="support" element={<Support/>} />
-        <Route path="fundraiser" element={<Fundraiser/>} />
-         
-       
-             
+        <Route path="addfundraiser" element={<AddFundraiser/>} />
+        <Route path="funds" element={<Fundraisers/>} />
         </Route>
         
       

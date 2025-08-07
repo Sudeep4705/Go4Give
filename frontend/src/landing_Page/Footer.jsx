@@ -35,10 +35,10 @@ function Footer() {
         <div className="footer-right">
           <Link to="/signup" className="footer-btn">Sign Up</Link>
           <div className="footer-socials">
-            <a href="#" aria-label="Facebook"><i className="fab fa-facebook-f" ></i></a>
-            <a href="#" aria-label="X / Twitter"><i className="fab fa-x-twitter"></i></a>
-            <a href="#" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
-            <a href="#" aria-label="YouTube"><i className="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/" aria-label="Facebook"><i className="fab fa-facebook-f" ></i></a>
+            <a href="https://www.instagram.com/" aria-label="X / Twitter"><i className="fab fa-x-twitter"></i></a>
+            <a href="https://x.com/" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/" aria-label="YouTube"><i className="fab fa-youtube"></i></a>
           </div>
         </div>
       </div>

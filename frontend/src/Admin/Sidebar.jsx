@@ -19,7 +19,7 @@ import {
 } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
-
+import FloodIcon from '@mui/icons-material/Flood';
 const Sidebar = ({ open }) => {
   const navigate = useNavigate();
   const location = useLocation(); // for active path
@@ -29,9 +29,9 @@ const Sidebar = ({ open }) => {
     { text: "Add Orphanage", icon: <AddBox />, path: "/dashboard/orphanage" },
     { text: "Donors", icon: <People />, path: "/dashboard/donors" },
     { text: "Feedback", icon: <Feedback />, path: "/dashboard/feedback" },
-    { text: "Report", icon: <BarChart />, path: "/dashboard/report" },
     { text: "Support", icon: <SupportAgentIcon />, path: "/dashboard/support" },
-    { text: "Fundraiser", icon: <VolunteerActivismIcon />, path: "/dashboard/fundraiser" },
+    { text: "AddFundraiser", icon: <VolunteerActivismIcon />, path: "/dashboard/addfundraiser" },
+    { text: "Fundraisers", icon: <FloodIcon />, path: "/dashboard/funds" },
   ];
 
   const drawerWidth = open ? 220 : 72;

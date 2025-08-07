@@ -1,6 +1,6 @@
 /* ---------- Root tokens ---------- */
 :root {
-  --bg-grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --bg-grad: linear-gradient(135deg, #d6ccff 0%, #b5f7f0 100%);
   --card-bg: rgba(255, 255, 255, 0.22);
   --card-border: rgba(255, 255, 255, 0.2);
   --shadow: 0 8px 32px rgba(31, 38, 135, 0.35);

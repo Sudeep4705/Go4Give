@@ -2,13 +2,18 @@ import { useState } from "react";
 import "./Donation.css";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import axios from "axios"
+import { useParams } from "react-router-dom";
+
 function Donation() {
+ const { id } = useParams();
+  console.log("Donation ID:", id);
   const [donation, setDonation] = useState({
     donorName: "",
     donationAmount: "",
     email: "",
     phone: "",
   });
+  
 const [razorpay,setrazorpay] = useState({
     razorpay_payment_id:"",
     razorpay_order_id:"",
@@ -24,7 +29,9 @@ const [razorpay,setrazorpay] = useState({
 const handlesubmit = async (e) => {
   e.preventDefault();
   try {
-    let res = await axios.post("http://localhost:8000/donation/donate", donation);
+    let res = await axios.post(`http://localhost:8000/donation/donate/${id}`, donation,{
+       withCredentials: true
+    });
 
     if (res.data.success) {
       // Save orderId and key for checkout
@@ -40,6 +47,8 @@ const handlesubmit = async (e) => {
 
     
     alert("Please login");
+    console.log(err);
+    
   }
 };
 
@@ -67,6 +76,8 @@ const openRazorpay = (orderId, key, amount) => {
         razorpay_payment_id: response.razorpay_payment_id,
         razorpay_order_id: response.razorpay_order_id,
         razorpay_signature: response.razorpay_signature
+      },{
+        withCredentials: true
       })
       .then(res => {
         if (res.data.success) {

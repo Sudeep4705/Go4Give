@@ -22,7 +22,7 @@ function Feedback(){
     const [feedback,setfeedback] = useState()
 
     const handleChange=async()=>{
-        let res = await axios.get("http://localhost:8000/feedback")
+        let res = await axios.get("http://localhost:8000/reviews/show")
         setfeedback(res.data)
        
       

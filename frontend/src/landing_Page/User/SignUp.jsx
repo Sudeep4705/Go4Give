@@ -22,6 +22,8 @@ function Signup() {
      let res =  await axios.post("http://localhost:8000/user/register",user,{
         withCredentials:true
       })
+      console.log(res);
+      
       alert(res.data.message)
       setUser({email:"",username:"",password:""})
       navigate("/")
