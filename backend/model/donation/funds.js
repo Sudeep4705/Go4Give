@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const donorSchema = new Schema({
+const FundsSchema = new Schema({
     donorName: {
         type: String,
         required: true
@@ -36,13 +36,13 @@ const donorSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    orphanageName:{
+    Cause:{
         type:Schema.Types.ObjectId,
-        ref:"Listing"
+        ref:"Fundraiser"
         
     }
 });
 
-const Donation = mongoose.model("Donation", donorSchema);
+const Funds = mongoose.model("Funds", FundsSchema);
 
-module.exports = Donation;
+module.exports = Funds;

@@ -6,6 +6,7 @@ const router = express.Router()
 const User = require("../model/user/user");
 
 router.post("/register", async (req, res) => {
+    console.log("Register route hit");
   const { email, username, password } = req.body;
   if (!username || !email || !password) {
     return res.json({ success: false, message: "Missing" });
@@ -21,21 +22,24 @@ router.post("/register", async (req, res) => {
     const token = jsonWebToken.sign(
       { id: NewUser._id },
       process.env.JWT_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: "1d" }
     );
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: 24 * 60 * 60 * 1000,
+
     });
-    return res.json({ success: true });
+    console.log("Returning signup success response");
+   return res.json({ success:true,message:"Signup Successfully completed"});
   } catch (error) {
     res.json({ success: false, message: error.message });
   }
 });
 
 router.post("/login", async (req, res) => {
+   console.log("Login route hit");
   const { username, password } = req.body;
   if (!username || !password) {
     return res.json({
@@ -53,15 +57,16 @@ router.post("/login", async (req, res) => {
       return res.json({ success: false, message: "invalid password" });
     }
     const token = jsonWebToken.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
+      expiresIn: "1d",
     });
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: 24 * 60 * 60 * 1000
+,
     });
-    return res.json({ success: true });
+    return res.json({ success: true ,message:"Login successfully"});
   } catch (error) {
     return res.json({ success: false, message: error.message });
   }
@@ -73,7 +78,7 @@ router.post("/logout", async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge:  24 * 60 * 60 * 1000,
     });
     return res.json({ success: true, message: "Logged Out" });
   } catch (error) {

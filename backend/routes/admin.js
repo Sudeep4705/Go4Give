@@ -18,13 +18,13 @@ router.post("/register", async (req, res) => {
     const owner = await admin.save();
 
     const token = jsonWebToken.sign({ id: owner._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
+      expiresIn: "1d",
     });
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge:  24 * 60 * 60 * 1000,
     });
     res.status(201).json({ success: true, message: "Admin created", token });
   } catch (err) {
@@ -54,13 +54,13 @@ router.post("/login", async (req, res) => {
       return res.json({ success: false, message: "invalid password" });
     }
     const token = jsonWebToken.sign({ id: admin._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
+      expiresIn: "1d",
     });
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: 24 * 60 * 60 * 1000,
     });
     return res.json({ success: true });
   } catch (error) {
