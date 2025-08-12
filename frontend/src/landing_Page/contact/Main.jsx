@@ -17,7 +17,7 @@ function Main() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8000/query/add", msg, {
+      const res = await axios.post("http://localhost:5173/query/add", msg, {
         withCredentials: true,
       });
       alert(res.data.message);

@@ -1,7 +1,8 @@
 // src/pages/Blog2.jsx
 import React from "react";
 
-function Blog2() {
+function Blog2(){
+
   return (
     <div>
       {/* Hero Section */}
@@ -95,4 +96,4 @@ function Blog2() {
   );
 }
 
-export default Blog2;
+export default Blog2;  

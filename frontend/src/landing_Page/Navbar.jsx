@@ -1,16 +1,12 @@
 import './Navbar.css'
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
   function Navbar(){
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const navigate = useNavigate();
     useEffect(() => {
-  fetch("http://localhost:8000/user/verify", {
-    method: "GET",
-    credentials: "include", //  sends the cookie
-  })
+ axios.get("http://localhost:8000/user/verify", { withCredentials: true })
     .then((res) => res.json())
     .then((data) => {
       setIsLoggedIn(data.loggedIn);
@@ -23,10 +19,14 @@ import { useNavigate } from "react-router-dom";
 
 const handleLogout = async () => {
   try {
-    await fetch("http://localhost:8000/user/logout", {
-      method: "POST",
-      credentials: "include",
-    });
+    // await fetch("http://localhost:8000/user/logout", {
+    //   method: "POST",
+    //   credentials: "include",
+    // });
+    await axios.post(
+  "http://localhost:8000/user/logout",
+  { withCredentials: true }
+);
 
     setIsLoggedIn(false);
     navigate("/login");

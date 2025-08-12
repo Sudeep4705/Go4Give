@@ -65,6 +65,8 @@ const openRazorpay = (orderId, key, amount) => {
   
     handler: function (response) {
       // Razorpay sends back payment details here
+      console.log(response);
+      
       setrazorpay({
         razorpay_payment_id: response.razorpay_payment_id,
         razorpay_order_id: response.razorpay_order_id,

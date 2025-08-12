@@ -15,7 +15,7 @@ function Show() {
   useEffect(() => {
     axios
       .get(`http://localhost:8000/listing/show/${id}`)
-      .then((res) => setdata(res.data))
+    .then((res) => setdata(res.data))
       .catch((error) => console.log(error));
   }, [id]);
 

@@ -27,6 +27,8 @@ function Review({listingId}) {
     let res = await axios.post(`http://localhost:8000/reviews/${listingId}`,payload,{
        withCredentials: true,
     })
+
+
     alert(res.data.message)
     setReview({comment:"",rating:""})
   }
