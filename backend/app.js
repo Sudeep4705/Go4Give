@@ -2,8 +2,7 @@ require("dotenv").config(); // Loads .env into process.env
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const cookieParser = require("cookie-parser");
-const path = require("path");
+const cookieParser = require("cookie-parser"); //read and write the cookie
 const adminsRoute = require("./routes/admin");
 const usersRoute = require("./routes/user");
 const orphanageRoute = require("./routes/orphanage.js");
@@ -31,29 +30,24 @@ main()
 // Middleware
 app.use(cookieParser());
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
-
 // These parsers are safe for non-multipart routes
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 // Routes
 app.get("/", (req, res) => {
   res.send("server is working");
 });
-
 app.use("/admin", adminsRoute);
 app.use("/user", usersRoute);
 app.use("/listing", orphanageRoute);
 app.use("/reviews", reviewsRoute);
 app.use("/query", supportRoute);
-
 //fundraiser uses multer for file upload
 app.use("/fundraiser", fundraiserRoute);
 // donation
 app.use("/donation", donationRoute);
 // chatbot
 app.use("/api/chat", chatRoutes);
-
 // report
 app.use("/report",report)
 // Start server
