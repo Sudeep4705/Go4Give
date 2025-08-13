@@ -44,46 +44,39 @@ const handleLogout = async () => {
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
-    import { Link } from "react-router-dom";
+    <div className="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul className="navbar-nav">
+        <li className="nav-item">
+          <a className="nav-link active"  href="/">Home</a>
+        </li>
+        <li className="nav-item"> 
+          <a className="nav-link active" href="/about">About</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link active" href="/contact">Contact</a>
+        </li>
+        <li className="nav-item dropdown">
+          <a className="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Explore
+          </a>
+          <ul className="dropdown-menu">
+            <li><a className="dropdown-item" href="/fundraiser">Fundraiser</a></li>
+            <li><a className="dropdown-item" href="/blog">Blog</a></li>
+            
+          </ul>
+        </li>
+        {/*  ADD THIS INSIDE THE <ul> */}
+  {isLoggedIn && (
+    <li className="nav-item">
+      <button className="btn btn-outline-danger ms-2" onClick={handleLogout}>
+        Logout
+      </button>
+    </li>
+  )}
 
-<div className="collapse navbar-collapse" id="navbarNavDropdown">
-  <ul className="navbar-nav">
-    <li className="nav-item">
-      <Link className="nav-link active" to="/">Home</Link>
-    </li>
-    <li className="nav-item">
-      <Link className="nav-link active" to="/about">About</Link>
-    </li>
-    <li className="nav-item">
-      <Link className="nav-link active" to="/contact">Contact</Link>
-    </li>
-    <li className="nav-item dropdown">
-      <Link
-        className="nav-link dropdown-toggle active"
-        to="#"
-        role="button"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
-        Explore
-      </Link>
-      <ul className="dropdown-menu">
-        <li><Link className="dropdown-item" to="/fundraiser">Fundraiser</Link></li>
-        <li><Link className="dropdown-item" to="/blog">Blog</Link></li>
       </ul>
-    </li>
-
-    {/* ADD THIS INSIDE THE <ul> */}
-    {isLoggedIn && (
-      <li className="nav-item">
-        <button className="btn btn-outline-danger ms-2" onClick={handleLogout}>
-          Logout
-        </button>
-      </li>
-    )}
-  </ul>
-</div>
-
+      
+    </div>
   </div>
 </nav>
 
