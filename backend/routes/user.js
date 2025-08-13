@@ -24,11 +24,11 @@ router.post("/register", async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
-  res.cookie("token", token, {
+res.cookie("token", token, {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production", // must be true for SameSite=None
-  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // none for cross-site
-  maxAge: 24 * 60 * 60 * 1000, // 1 day
+  secure: true, // must be true for SameSite=None
+  sameSite: "none", // required for cross-domain
+  maxAge: 24 * 60 * 60 * 1000
 });
     console.log("Returning signup success response");
    return res.json({ success:true,message:"Signup Successfully completed"});
@@ -58,11 +58,11 @@ router.post("/login", async (req, res) => {
     const token = jsonWebToken.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
-   res.cookie("token", token, {
+ res.cookie("token", token, {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production", // must be true for SameSite=None
-  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // none for cross-site
-  maxAge: 24 * 60 * 60 * 1000, // 1 day
+  secure: true, // must be true for SameSite=None
+  sameSite: "none", // required for cross-domain
+  maxAge: 24 * 60 * 60 * 1000
 });
     return res.json({ success: true ,message:"Login successfully"});
   } catch (error) {
@@ -72,11 +72,11 @@ router.post("/login", async (req, res) => {
 
 router.post("/logout", async (req, res) => {
   try {
-    res.clearCookie("token", {
-       httpOnly: true,
-  secure: process.env.NODE_ENV === "production", // must be true for SameSite=None
-  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // none for cross-site
-  maxAge: 24 * 60 * 60 * 1000, // 1 day
+  res.clearCookie("token", {
+  httpOnly: true,
+  secure: true, // must be true for SameSite=None
+  sameSite: "none", // required for cross-domain
+  maxAge: 24 * 60 * 60 * 1000
     });
     return res.json({ success: true, message: "Logged Out" });
   } catch (error) {
