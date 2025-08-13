@@ -27,8 +27,9 @@ router.post("/register", async (req, res) => {
 res.cookie("token", token, {
   httpOnly: true,
   secure: true, // must be true for SameSite=None
-  sameSite: "none", // required for cross-domain
-  maxAge: 24 * 60 * 60 * 1000
+  sameSite: "none",
+  maxAge: 24 * 60 * 60 * 1000, // 1 day
+  expires: new Date(Date.now() + 24 * 60 * 60 * 1000) // also 1 day
 });
     console.log("Returning signup success response");
    return res.json({ success:true,message:"Signup Successfully completed"});
@@ -58,11 +59,12 @@ router.post("/login", async (req, res) => {
     const token = jsonWebToken.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
- res.cookie("token", token, {
+res.cookie("token", token, {
   httpOnly: true,
   secure: true, // must be true for SameSite=None
-  sameSite: "none", // required for cross-domain
-  maxAge: 24 * 60 * 60 * 1000
+  sameSite: "none",
+  maxAge: 24 * 60 * 60 * 1000, // 1 day
+  expires: new Date(Date.now() + 24 * 60 * 60 * 1000) // also 1 day
 });
     return res.json({ success: true ,message:"Login successfully"});
   } catch (error) {
@@ -72,12 +74,13 @@ router.post("/login", async (req, res) => {
 
 router.post("/logout", async (req, res) => {
   try {
-  res.clearCookie("token", {
+  res.cookie("token", token, {
   httpOnly: true,
   secure: true, // must be true for SameSite=None
-  sameSite: "none", // required for cross-domain
-  maxAge: 24 * 60 * 60 * 1000
-    });
+  sameSite: "none",
+  maxAge: 24 * 60 * 60 * 1000, // 1 day
+  expires: new Date(Date.now() + 24 * 60 * 60 * 1000) // also 1 day
+});
     return res.json({ success: true, message: "Logged Out" });
   } catch (error) {
     return res.json({ success: false, message: error.message });
