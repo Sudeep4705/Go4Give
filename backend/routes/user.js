@@ -24,13 +24,12 @@ router.post("/register", async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge: 24 * 60 * 60 * 1000,
-
-    });
+  res.cookie("token", token, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production", // must be true for SameSite=None
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // none for cross-site
+  maxAge: 24 * 60 * 60 * 1000, // 1 day
+});
     console.log("Returning signup success response");
    return res.json({ success:true,message:"Signup Successfully completed"});
   } catch (error) {
@@ -59,13 +58,12 @@ router.post("/login", async (req, res) => {
     const token = jsonWebToken.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge: 24 * 60 * 60 * 1000
-,
-    });
+   res.cookie("token", token, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production", // must be true for SameSite=None
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // none for cross-site
+  maxAge: 24 * 60 * 60 * 1000, // 1 day
+});
     return res.json({ success: true ,message:"Login successfully"});
   } catch (error) {
     return res.json({ success: false, message: error.message });
@@ -75,10 +73,10 @@ router.post("/login", async (req, res) => {
 router.post("/logout", async (req, res) => {
   try {
     res.clearCookie("token", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge:  24 * 60 * 60 * 1000,
+       httpOnly: true,
+  secure: process.env.NODE_ENV === "production", // must be true for SameSite=None
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // none for cross-site
+  maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
     return res.json({ success: true, message: "Logged Out" });
   } catch (error) {
