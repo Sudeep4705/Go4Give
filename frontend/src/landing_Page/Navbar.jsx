@@ -6,7 +6,7 @@ import axios from "axios";
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const navigate = useNavigate();
     useEffect(() => {
- axios.get(`${import.meta.env.VITE_API_URL}/verify`, { withCredentials: true })
+ axios.get(`${import.meta.env.VITE_API_URL}/user/verify`, { withCredentials: true })
     .then((res) => res.json())
     .then((data) => {
       setIsLoggedIn(data.loggedIn);
@@ -24,7 +24,7 @@ const handleLogout = async () => {
     //   credentials: "include",
     // });
     await axios.post(
-  `${import.meta.env.VITE_API_URL}`,
+  `${import.meta.env.VITE_API_URL}/user/logout`,
   { withCredentials: true }
 );
 

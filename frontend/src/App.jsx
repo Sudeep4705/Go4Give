@@ -79,7 +79,7 @@ function App() {
           <Route path="index" element={<Orphan />} />
           <Route path="show/:id" element={<ShowPage/>} />
           <Route path="blog" element={<Blog/>} />
-          <Route path="fundraiser" element={<UserFundraiser/>} />
+          <Route path="/fundraiser" element={<UserFundraiser/>} />
           <Route path="donation/:id" element={<Donation/>} />
           <Route path="fund/:id" element={<FundsDonation/>} />
           <Route path="blog/:id" element={<BlogDetail />} />
