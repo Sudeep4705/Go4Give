@@ -29,7 +29,7 @@ main()
 
 // Middleware
 app.use(cookieParser());
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "https://go4give-1.onrender.com", credentials: true }));
 // These parsers are safe for non-multipart routes
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
