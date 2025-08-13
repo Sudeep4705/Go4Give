@@ -90,8 +90,8 @@ function App() {
         </Route>
 
         
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/dashboard" element={<AdminLayout />}>
+        <Route path="admin/login" element={<AdminLogin />} />
+        <Route path="dashboard" element={<AdminLayout />}>
         <Route path="home" element={<Home />} />
         <Route path="feedback" element={<Feedback/>} />
         <Route path="donors" element={<Donor/>} />
