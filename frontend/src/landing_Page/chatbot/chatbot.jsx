@@ -13,7 +13,7 @@ export default function Chat() {
     setInput("");
 
     try {
-      const res = await axios.post("http://localhost:8000/api/chat/message", {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/chat/message`, {
         message: input,
       });
       const botMsg = { role: "assistant", content: res.data.reply };

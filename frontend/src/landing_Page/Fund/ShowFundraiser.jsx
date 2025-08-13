@@ -8,7 +8,7 @@ function Fundraiser(){
   const [funds,setfunds] = useState([])
 
 const handlechange = async()=>{
-let res = await axios.get("http://localhost:8000/fundraiser/show")
+let res = await axios.get(`${import.meta.env.VITE_API_URL}/fundraiser/show`)
 setfunds(res.data)
 }
 

@@ -6,7 +6,7 @@ function Support(){
 const [msg,setmsg] = useState([])
 
 const handlechange = async()=>{
-    let res  =  await axios.get("http://localhost:8000/query/show")
+    let res  =  await axios.get(`${import.meta.env.VITE_API_URL}/query/show`)
     setmsg(res.data)
     console.log(res.data);
     
@@ -16,8 +16,8 @@ useEffect(()=>{
 },[])
 
 const updateStatus = async(id,newStatus)=>{
-    await axios.put(`http://localhost:8000/query/${id}`,{status:newStatus})
-    const res = await axios.get("http://localhost:8000/query/show")
+    await axios.put(`${import.meta.env.VITE_API_URL}/query/${id}`,{status:newStatus})
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/query/show`)
     setmsg(res.data)
 }
 

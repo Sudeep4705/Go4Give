@@ -16,7 +16,7 @@ const handleChange=((e)=>{
 const handlelogin = async(e)=>{
 
   e.preventDefault()
-  const res = await axios.post("http://localhost:8000/admin/login",login,{
+  const res = await axios.post(`${import.meta.env.VITE_API_URL}/admin/login`,login,{
     withCredentials:true
   })
 if(res.data.success){

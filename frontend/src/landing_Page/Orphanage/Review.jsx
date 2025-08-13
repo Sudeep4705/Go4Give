@@ -24,7 +24,7 @@ function Review({listingId}) {
       rating: Number(review.rating),
     }
      try{
-    let res = await axios.post(`http://localhost:8000/reviews/${listingId}`,payload,{
+    let res = await axios.post(`${import.meta.env.VITE_API_URL}/reviews/${listingId}`,payload,{
        withCredentials: true,
     })
 

@@ -22,7 +22,7 @@ function Feedback(){
     const [feedback,setfeedback] = useState()
 
     const handleChange=async()=>{
-        let res = await axios.get("http://localhost:8000/reviews/show")
+        let res = await axios.get(`${import.meta.env.VITE_API_URL}/reviews/show`)
         setfeedback(res.data)
        
       

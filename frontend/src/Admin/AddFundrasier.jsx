@@ -49,7 +49,7 @@ function AddFundraiser(){
        
 
         try {
-            let res = await axios.post("http://localhost:8000/fundraiser/add", formdata, {
+            let res = await axios.post(`${import.meta.env.VITE_API_URL}/fundraiser/add`, formdata, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

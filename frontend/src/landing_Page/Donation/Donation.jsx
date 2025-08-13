@@ -29,7 +29,7 @@ const [razorpay,setrazorpay] = useState({
 const handlesubmit = async (e) => {
   e.preventDefault();
   try {
-    let res = await axios.post(`http://localhost:8000/donation/donate/${id}`, donation,{
+    let res = await axios.post(`${import.meta.env.VITE_API_URL}/donation/donate/${id}`, donation,{
        withCredentials: true
     });
 
@@ -74,7 +74,7 @@ const openRazorpay = (orderId, key, amount) => {
       });
 
       // Send these details to your backend for verification
-      axios.post("http://localhost:8000/donation/verifypayment", {
+      axios.post(`${import.meta.env.VITE_API_URL}/donation/verifypayment`, {
         razorpay_payment_id: response.razorpay_payment_id,
         razorpay_order_id: response.razorpay_order_id,
         razorpay_signature: response.razorpay_signature

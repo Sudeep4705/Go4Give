@@ -20,7 +20,7 @@ const navigate = useNavigate()
 const handlelogin = async(e)=>{
   try{
  e.preventDefault()
-  const res = await axios.post("http://localhost:8000/user/login",login,{
+  const res = await axios.post(`${import.meta.env.VITE_API_URL}/user/login`,login,{
     withCredentials: true,
   });
  if (res.data.success) {

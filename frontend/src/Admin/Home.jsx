@@ -15,9 +15,9 @@ const [report, setReport] = useState({
 const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/report/all')
+    axios.get(`${import.meta.env.VITE_API_URL}/report/all`)
       .then(res => {
-        setReport(res.data);
+        setReport(res.data);  
         setLoading(false);
       })
       .catch(err => {

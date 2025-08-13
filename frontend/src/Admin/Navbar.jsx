@@ -18,7 +18,7 @@ const Navbar = ({ toggleDrawer }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:8000/user/verify", {
+    fetch(`${import.meta.env.VITE_API_URL}/user/verify`, {
       method: "GET",
       credentials: "include",
     })
@@ -34,7 +34,7 @@ const Navbar = ({ toggleDrawer }) => {
 
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:8000/user/logout", {
+      await fetch(`${import.meta.env.VITE_API_URL}/user/logout`, {
         method: "POST",
         credentials: "include",
       });

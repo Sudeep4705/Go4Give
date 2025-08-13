@@ -8,7 +8,7 @@ function Fundraisers() {
 
   const handleChange = async () => {
     try {
-      let res = await axios.get("http://localhost:8000/fundraiser/fundraiserlist");
+      let res = await axios.get(`${import.meta.env.VITE_API_URL}/fundraiser/fundraiserlist`);
       setDonors(res.data);
     } catch (err) {
       console.log(err);
@@ -22,7 +22,7 @@ function Fundraisers() {
 
   const sendReceipt = async (donor) => {
   try {
-    let res = await axios.post("http://localhost:8000/fundraiser/sendreceipt", {
+    let res = await axios.post(`${import.meta.env.VITE_API_URL}/fundraiser/sendreceipt`, {
       donorName: donor.donorName,
       email: donor.email,
       donationAmount: donor.donationAmount,
@@ -40,7 +40,7 @@ function Fundraisers() {
 };
 
 const handledelete =async (id)=>{
-  let res = await  axios.get(`http://localhost:8000/fundraiser/delete/${id}`)
+  let res = await  axios.get(`${import.meta.env.VITE_API_URL}/fundraiser/delete/${id}`)
   alert(res.data.message)
 }
 
