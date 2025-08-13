@@ -79,7 +79,7 @@ function App() {
           <Route path="index" element={<Orphan />} />
           <Route path="show/:id" element={<ShowPage/>} />
           <Route path="blog" element={<Blog/>} />
-          <Route path="/fundraiser" element={<UserFundraiser/>} />
+          <Route path="fundraiser" element={<UserFundraiser/>} />
           <Route path="donation/:id" element={<Donation/>} />
           <Route path="fund/:id" element={<FundsDonation/>} />
           <Route path="blog/:id" element={<BlogDetail />} />
@@ -94,7 +94,7 @@ function App() {
         <Route path="home" element={<Home />} />
         <Route path="feedback" element={<Feedback/>} />
         <Route path="donors" element={<Donor/>} />
-        <Route path="home" element={<Home/>} />
+        
         <Route path="orphanage" element={<Orphanage/>} />
         <Route path="support" element={<Support/>} />
         <Route path="addfundraiser" element={<AddFundraiser/>} />
