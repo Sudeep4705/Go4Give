@@ -72,18 +72,18 @@ function App() {
       <Routes>
           <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="about" element={<AboutPage />} />
-          <Route path="contact" element={<ContactPage />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="login" element={<Login />} />
-          <Route path="index" element={<Orphan />} />
-          <Route path="show/:id" element={<ShowPage/>} />
-          <Route path="blog" element={<Blog/>} />
-          <Route path="fundraiser" element={<UserFundraiser/>} />
-          <Route path="donation/:id" element={<Donation/>} />
-          <Route path="fund/:id" element={<FundsDonation/>} />
-          <Route path="blog/:id" element={<BlogDetail />} />
-          <Route path="chatbot" element={<Chat />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/index" element={<Orphan />} />
+          <Route path="/show/:id" element={<ShowPage/>} />
+          <Route path="/blog" element={<Blog/>} />
+          <Route path="/fundraiser" element={<UserFundraiser/>} />
+          <Route path="/donation/:id" element={<Donation/>} />
+          <Route path="/fund/:id" element={<FundsDonation/>} />
+          <Route path="/blog/:id" element={<BlogDetail />} />
+          <Route path="/chatbot" element={<Chat />} />
 
 
         </Route>
