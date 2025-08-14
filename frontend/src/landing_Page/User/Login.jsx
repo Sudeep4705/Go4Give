@@ -1,46 +1,61 @@
-import axios from "axios"
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function Login(){
-
-const [login,setlogin]= useState({
-    username:"",
-    password:""
-})
-
-const [message,setmessage] = useState()
-
-const handleChange=((e)=>{
-    setlogin({...login,[e.target.name]:e.target.value})
-})
-
-
-const navigate = useNavigate()
-const handlelogin = async(e)=>{
-  try{
- e.preventDefault()
-  const res = await axios.post(`${import.meta.env.VITE_API_URL}/user/login`,login,{
-    withCredentials: true,
+function Login() {
+  const [login, setLogin] = useState({
+    username: "",
+    password: "",
   });
- if (res.data.success) {
-  alert(res.data.message)
-      setlogin({ username: "", password: "" });
-      navigate("/");
-    } else {
-      // alert(res.data.message || "Login failed");
-      setmessage(res.data.message)
+
+  const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  // Clear error message on input change
+  const handleChange = (e) => {
+    setLogin({ ...login, [e.target.name]: e.target.value });
+    setMessage("");
+  };
+
+  // Optional: Refresh access token if needed
+  const refreshAccessToken = async () => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/user/refresh-token`, {
+        withCredentials: true,
+      });
+      return res.data.success;
+    } catch (err) {
+      console.log("Refresh token error:", err);
+      return false;
     }
-  }
-  catch(err){
-    console.log(err);
-    
-  }
-  
- 
-}
-    return(
-      <div
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/user/login`, login, {
+        withCredentials: true, // Needed for httpOnly cookies
+      });
+
+      if (res.data.success) {
+        alert(res.data.message);
+        setLogin({ username: "", password: "" });
+        navigate("/");
+      } else {
+        setMessage(res.data.message || "Login failed");
+      }
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setMessage(err.response.data.message);
+      } else {
+        setMessage("Something went wrong. Please try again.");
+      }
+    }
+  };
+
+  return (
+    <div
       style={{
         position: "relative",
         backgroundImage: `url("/images/signup.jpg")`,
@@ -80,17 +95,19 @@ const handlelogin = async(e)=>{
           width: "100%",
           maxWidth: "420px",
           boxShadow: "0 15px 35px rgba(0,0,0,0.3)",
-          color: "#fff"
+          color: "#fff",
         }}
       >
         <h2 className="text-center mb-4" style={{ fontWeight: "600" }}>
-         Login to your account
+          Login to your account
         </h2>
-        <h2>{message}</h2>
+        {message && (
+          <h5 style={{ color: "red", textAlign: "center", marginBottom: "15px" }}>
+            {message}
+          </h5>
+        )}
 
-        <form onSubmit={handlelogin}>
-       
-
+        <form onSubmit={handleLogin}>
           <div className="mb-3">
             <label htmlFor="username" className="form-label" style={{ fontSize: "15px" }}>
               Username
@@ -107,7 +124,7 @@ const handlelogin = async(e)=>{
                 fontSize: "14px",
                 backgroundColor: "rgba(255,255,255,0.1)",
                 border: "1px solid rgba(255,255,255,0.3)",
-                color: "#fff"
+                color: "#fff",
               }}
               required
             />
@@ -129,22 +146,23 @@ const handlelogin = async(e)=>{
                 fontSize: "14px",
                 backgroundColor: "rgba(255,255,255,0.1)",
                 border: "1px solid rgba(255,255,255,0.3)",
-                color: "#fff"
+                color: "#fff",
               }}
               required
             />
           </div>
 
-          <button type="submit" className="btn btn-light w-100 rounded-pill py-2" style={{ fontWeight: "500" }}>
-        Login
+          <button
+            type="submit"
+            className="btn btn-light w-100 rounded-pill py-2"
+            style={{ fontWeight: "500" }}
+          >
+            Login
           </button>
         </form>
-
-        
-       
       </div>
     </div>
-    )
+  );
 }
 
 export default Login;
