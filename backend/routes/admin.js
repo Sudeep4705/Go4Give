@@ -20,12 +20,12 @@ router.post("/register", async (req, res) => {
     const token = jsonWebToken.sign({ id: owner._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge:  24 * 60 * 60 * 1000,
-    });
+  res.cookie("token", token, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production" ? true : false,
+  sameSite: "none",
+  maxAge: 24 * 60 * 60 * 1000
+});
     res.status(201).json({ success: true, message: "Admin created", token });
   } catch (err) {
     console.error(err);
@@ -56,12 +56,12 @@ router.post("/login", async (req, res) => {
     const token = jsonWebToken.sign({ id: admin._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge: 24 * 60 * 60 * 1000,
-    });
+   res.cookie("token", token, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production" ? true : false,
+  sameSite: "none",
+  maxAge: 24 * 60 * 60 * 1000
+});
     return res.json({ success: true });
   } catch (error) {
     return res.json({ success: false, message: error.message });
