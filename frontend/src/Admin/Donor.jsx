@@ -26,8 +26,7 @@ function Donar() {
       email: donor.email,
       donationAmount: donor.donationAmount,
       orderId: donor.orderId,
-    },
-   { withCredentials: true });
+    });
 
     if (res.data.success) {
       alert("Receipt sent to " + donor.email);
