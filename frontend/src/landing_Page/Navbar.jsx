@@ -97,27 +97,24 @@ function Navbar() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkLogin = async () => {
-      try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/user/verify`, {
-          withCredentials: true,
-        });
+    axios.get(`${import.meta.env.VITE_API_URL}/user/verify`, { withCredentials: true })
+      .then((res) => {
         setIsLoggedIn(res.data.loggedIn);
-      } catch (err) {
+      })
+      .catch((err) => {
+        console.error("Auth check failed", err);
         setIsLoggedIn(false);
-      }
-    };
-
-    checkLogin();
+      });
   }, []);
 
-const handleLogout = async () => {
+  const handleLogout = async () => {
     try {
       await axios.post(
         `${import.meta.env.VITE_API_URL}/user/logout`,
         {},
         { withCredentials: true }
       );
+
       setIsLoggedIn(false);
       navigate("/login");
     } catch (err) {
