@@ -14,7 +14,7 @@ const chatRoutes = require("./routes/chatbot.js");
 const report = require("./routes/report.js")
 const app = express();
 const url = process.env.MONGO_URL;
-const path = require('path');
+
 // Connect to MongoDB
 async function main() {
   await mongoose.connect(url);
@@ -33,11 +33,7 @@ app.use(cors({ origin: "https://go4give-1.onrender.com", credentials: true }));
 // These parsers are safe for non-multipart routes
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'dist')));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
 
 // Routes
 app.get("/", (req, res) => {
