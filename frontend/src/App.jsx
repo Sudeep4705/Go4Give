@@ -47,12 +47,10 @@ import AdminLayout from '../layouts/AdminLayout';
 import Home from './Admin/Home'
 import Feedback from './Admin/Feedback'
 import Donor from './Admin/Donor'
-
 import Orphanage from './Admin//Orphanage'
 import Orphan  from  './landing_Page/Orphanage/Orphans'
 import ShowPage from './landing_Page/Orphanage/Show';
 import Support from "./Admin/Support"
-
 import Blog from './landing_Page/Blog/Blog';
 import UserFundraiser from './landing_Page/Fund/ShowFundraiser'
 import Donation from './landing_Page/Donation/Donation';
@@ -83,27 +81,22 @@ function App() {
           <Route path="donation/:id" element={<Donation/>} />
           <Route path="fund/:id" element={<FundsDonation/>} />
           <Route path="blog/:id" element={<BlogDetail />} />
-          <Route path="chatbot" element={<Chat />} />
+          <Route path="chatbot" element={<Chat/>} />
           
 
 
         </Route>
-
-        
-        <Route path="admin/login" element={<AdminLogin />} />
-        <Route path="dashboard" element={<AdminLayout />}>
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/dashboard" element={<AdminLayout />}>
         <Route path="home" element={<Home />} />
         <Route path="feedback" element={<Feedback/>} />
         <Route path="donors" element={<Donor/>} />
-        
         <Route path="orphanage" element={<Orphanage/>} />
         <Route path="support" element={<Support/>} />
         <Route path="addfundraiser" element={<AddFundraiser/>} />
         <Route path="funds" element={<Fundraisers/>} />
         </Route>
-        
-      
-      </Routes>
+        </Routes>
     </BrowserRouter>
   );
 }
