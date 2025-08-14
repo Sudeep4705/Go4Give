@@ -421,7 +421,7 @@ async function generateCertificate(donorName, donationAmount, orderId) {
 }
 
 // Main route for sending receipt and certificate
-router.post("/sendreceipt",authenticateUser, async (req, res) => {
+router.post("/sendreceipt", async (req, res) => {
   const { donorName, email, donationAmount, orderId } = req.body;
 
   try {
