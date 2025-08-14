@@ -14,7 +14,7 @@ const chatRoutes = require("./routes/chatbot.js");
 const report = require("./routes/report.js")
 const app = express();
 const url = process.env.MONGO_URL;
-
+const path = require('path');
 // Connect to MongoDB
 async function main() {
   await mongoose.connect(url);
