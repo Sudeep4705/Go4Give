@@ -26,11 +26,11 @@ router.post("/register", async (req, res) => {
     );
 res.cookie("token", token, {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production", // true in prod
-  sameSite: "none", // for cross-site cookies
-  maxAge: 24 * 60 * 60 * 1000, // 1 day
-  expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // also 1 day
+  secure: process.env.NODE_ENV === "production" ? true : false,
+  sameSite: "none",
+  maxAge: 24 * 60 * 60 * 1000
 });
+
 
     console.log("Returning signup success response");
    return res.json({ success:true,message:"Signup Successfully completed"});
@@ -62,10 +62,9 @@ router.post("/login", async (req, res) => {
     });
 res.cookie("token", token, {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production", // true in prod
-  sameSite: "none", // for cross-site cookies
-  maxAge: 24 * 60 * 60 * 1000, // 1 day
-  expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // also 1 day
+  secure: process.env.NODE_ENV === "production" ? true : false,
+  sameSite: "none",
+  maxAge: 24 * 60 * 60 * 1000
 });
 
     return res.json({ success: true ,message:"Login successfully"});
@@ -77,11 +76,10 @@ res.cookie("token", token, {
 router.post("/logout", async (req, res) => {
   try {
     res.clearCookie("token", {
-   httpOnly: true,
-  secure: process.env.NODE_ENV === "production", // true in prod
-  sameSite: "none", // for cross-site cookies
-  maxAge: 24 * 60 * 60 * 1000, // 1 day
-  expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // also 1 day
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production" ? true : false,
+  sameSite: "none",
+  maxAge: 24 * 60 * 60 * 1000
     });
     return res.json({ success: true, message: "Logged Out" });
   } catch (error) {
