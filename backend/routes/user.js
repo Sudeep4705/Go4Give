@@ -1,106 +1,174 @@
-
 const bcrypt = require("bcryptjs");
-const jsonWebToken = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const express = require("express");
-const router = express.Router()
+const router = express.Router();
 const User = require("../model/user/user");
 
+// ---------------------------
+// REGISTER
+// ---------------------------
 router.post("/register", async (req, res) => {
-    console.log("Register route hit");
   const { email, username, password } = req.body;
-  if (!username || !email || !password) {
-    return res.json({ success: false, message: "Missing" });
-  }
+  if (!username || !email || !password)
+    return res.json({ success: false, message: "Missing fields" });
+
   try {
     const existingUser = await User.findOne({ email });
-    if (existingUser) {
+    if (existingUser)
       return res.json({ success: false, message: "User already exists" });
-    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
-    const NewUser = new User({ email, username, password: hashedPassword });
-    await NewUser.save();
-    const token = jsonWebToken.sign(
-      { id: NewUser._id },
+    const newUser = new User({ email, username, password: hashedPassword });
+    await newUser.save();
+
+    // Create tokens
+    const accessToken = jwt.sign(
+      { id: newUser._id },
       process.env.JWT_SECRET,
-      { expiresIn: "1d" }
+      { expiresIn: "1h" }
     );
-res.cookie("token", token, {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production" ? true : false,
-  sameSite: "none",
-  maxAge: 24 * 60 * 60 * 1000
-});
 
+    const refreshToken = jwt.sign(
+      { id: newUser._id },
+      process.env.JWT_REFRESH_SECRET,
+      { expiresIn: "7d" }
+    );
 
-    console.log("Returning signup success response");
-   return res.json({ success:true,message:"Signup Successfully completed"});
-  } catch (error) {
-    res.json({ success: false, message: error.message });
-  }
-});
-
-router.post("/login", async (req, res) => {
-   console.log("Login route hit");
-  const { username, password } = req.body;
-  if (!username || !password) {
-    return res.json({
-      success: false,
-      message: "username and password are required",
+    // Set cookies
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+      maxAge: 60 * 60 * 1000, // 1 hour
     });
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
+    return res.json({ success: true, message: "Signup successful" });
+  } catch (error) {
+    return res.json({ success: false, message: error.message });
   }
+});
+
+// ---------------------------
+// LOGIN
+// ---------------------------
+router.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password)
+    return res.json({ success: false, message: "Missing username/password" });
+
   try {
     const user = await User.findOne({ username });
-    if (!user) {
-      return res.json({ success: false, message: "invalid username" });
-    }
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.json({ success: false, message: "invalid password" });
-    }
-    const token = jsonWebToken.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
-res.cookie("token", token, {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production" ? true : false,
-  sameSite: "none",
-  maxAge: 24 * 60 * 60 * 1000
-});
+    if (!user) return res.json({ success: false, message: "Invalid username" });
 
-    return res.json({ success: true ,message:"Login successfully"});
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.json({ success: false, message: "Invalid password" });
+
+    // Create tokens
+    const accessToken = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    const refreshToken = jwt.sign(
+      { id: user._id },
+      process.env.JWT_REFRESH_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    // Set cookies
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+      maxAge: 60 * 60 * 1000, // 1 hour
+    });
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
+    return res.json({ success: true, message: "Login successful" });
   } catch (error) {
     return res.json({ success: false, message: error.message });
   }
 });
 
+// ---------------------------
+// LOGOUT
+// ---------------------------
 router.post("/logout", async (req, res) => {
   try {
-    res.clearCookie("token", {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production" ? true : false,
-  sameSite: "none",
-  maxAge: 24 * 60 * 60 * 1000
+    res.clearCookie("accessToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
     });
-    return res.json({ success: true, message: "Logged Out" });
+
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+    });
+
+    return res.json({ success: true, message: "Logged out" });
   } catch (error) {
     return res.json({ success: false, message: error.message });
   }
 });
 
-// verify
+// ---------------------------
+// VERIFY ACCESS TOKEN
+// ---------------------------
 router.get("/verify", (req, res) => {
-  const token = req.cookies.token;
-
-  if (!token) {
-    return res.json({ loggedIn: false });
-  }
+  const token = req.cookies.accessToken;
+  if (!token) return res.json({ loggedIn: false });
 
   try {
-    const decoded = jsonWebToken.verify(token, process.env.JWT_SECRET);
-    return res.json({ loggedIn: true, user: decoded }); // optionally return user info
-  } catch (error) {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    return res.json({ loggedIn: true, user: decoded });
+  } catch (err) {
     return res.json({ loggedIn: false });
   }
 });
 
-module.exports = router
+// ---------------------------
+// REFRESH ACCESS TOKEN
+// ---------------------------
+router.get("/refresh-token", (req, res) => {
+  const token = req.cookies.refreshToken;
+  if (!token) return res.json({ success: false, message: "No refresh token" });
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
+
+    const newAccessToken = jwt.sign(
+      { id: decoded.id },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.cookie("accessToken", newAccessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+      maxAge: 60 * 60 * 1000, // 1 hour
+    });
+
+    return res.json({ success: true });
+  } catch (err) {
+    return res.json({ success: false, message: "Invalid refresh token" });
+  }
+});
+
+module.exports = router;
