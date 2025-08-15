@@ -1,46 +1,46 @@
-import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
-function Login() {
-  const [login, setLogin] = useState({
-    username: "",
-    password: ""
+function Login(){
+
+const [login,setlogin]= useState({
+    username:"",
+    password:""
+})
+
+const [message,setmessage] = useState()
+
+const handleChange=((e)=>{
+    setlogin({...login,[e.target.name]:e.target.value})
+})
+
+
+const navigate = useNavigate()
+const handlelogin = async(e)=>{
+  try{
+ e.preventDefault()
+  const res = await axios.post(`${import.meta.env.VITE_API_URL}/user/login`,login,{
+    withCredentials: true,
   });
-
-  const [message, setMessage] = useState("");
-  const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    setLogin({ ...login, [e.target.name]: e.target.value });
-  };
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/user/login`,
-        login
-      );
-
-      if (res.data.success) {
-        // store JWT in localStorage
-        localStorage.setItem("token", res.data.token);
-
-        alert(res.data.message);
-        setLogin({ username: "", password: "" });
-        navigate("/");
-      } else {
-        setMessage(res.data.message);
-      }
-    } catch (err) {
-      console.error(err);
-      setMessage("Something went wrong. Please try again.");
+ if (res.data.success) {
+  alert(res.data.message)
+      setlogin({ username: "", password: "" });
+      navigate("/");
+    } else {
+      // alert(res.data.message || "Login failed");
+      setmessage(res.data.message)
     }
-  };
-
-  return (
-    <div
+  }
+  catch(err){
+    console.log(err);
+    
+  }
+  
+ 
+}
+    return(
+      <div
       style={{
         position: "relative",
         backgroundImage: `url("/images/signup.jpg")`,
@@ -84,11 +84,13 @@ function Login() {
         }}
       >
         <h2 className="text-center mb-4" style={{ fontWeight: "600" }}>
-          Login to your account
+         Login to your account
         </h2>
-        {message && <h4 style={{ color: "red", fontSize: "14px" }}>{message}</h4>}
+        <h2>{message}</h2>
 
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handlelogin}>
+       
+
           <div className="mb-3">
             <label htmlFor="username" className="form-label" style={{ fontSize: "15px" }}>
               Username
@@ -133,17 +135,16 @@ function Login() {
             />
           </div>
 
-          <button
-            type="submit"
-            className="btn btn-light w-100 rounded-pill py-2"
-            style={{ fontWeight: "500" }}
-          >
-            Login
+          <button type="submit" className="btn btn-light w-100 rounded-pill py-2" style={{ fontWeight: "500" }}>
+        Login
           </button>
         </form>
+
+        
+       
       </div>
     </div>
-  );
+    )
 }
 
 export default Login;
