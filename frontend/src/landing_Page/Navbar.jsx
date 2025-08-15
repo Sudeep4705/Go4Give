@@ -96,30 +96,34 @@ function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/user/verify`, { withCredentials: true })
+ useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setIsLoggedIn(false);
+      return;
+    }
+
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/user/verify`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setIsLoggedIn(res.data.loggedIn);
+        navigate("/")
       })
       .catch((err) => {
-        console.error("Auth check failed", err);
+        console.error(err);
         setIsLoggedIn(false);
       });
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}/user/logout`,
-        {},
-        { withCredentials: true }
-      );
-
-      setIsLoggedIn(false);
-      navigate("/login");
-    } catch (err) {
-      console.error("Logout failed", err);
-    }
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    navigate("/")
   };
 
   return (
