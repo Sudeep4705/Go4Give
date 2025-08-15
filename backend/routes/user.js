@@ -39,18 +39,14 @@ router.post("/login", async (req, res) => {
   if (!username || !password) {
     return res.status(400).json({ success: false, message: "Username and password are required" });
   }
-
   try {
     const user = await User.findOne({ username });
     if (!user) return res.status(401).json({ success: false, message: "Invalid username" });
-
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ success: false, message: "Invalid password" });
-
     const token = generateToken(user._id);
-
     return res.json({ success: true, message: "Login successful", token });
-  } catch (error) {
+  } catch (error){
     return res.status(500).json({ success: false, message: error.message });
   }
 });
@@ -59,7 +55,6 @@ router.post("/login", async (req, res) => {
 router.get("/verify", (req, res) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.json({ loggedIn: false });
-
   const token = authHeader.split(" ")[1];
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
