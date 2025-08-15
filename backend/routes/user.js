@@ -1,106 +1,136 @@
 
-const bcrypt = require("bcryptjs");
-const jsonWebToken = require("jsonwebtoken");
+// const bcrypt = require("bcryptjs");
+// const jsonWebToken = require("jsonwebtoken");
+// const express = require("express");
+// const router = express.Router()
+// const User = require("../model/user/user");
+
+// router.post("/register", async (req, res) => {
+//     console.log("Register route hit");
+//   const { email, username, password } = req.body;
+//   if (!username || !email || !password) {
+//     return res.json({ success: false, message: "Missing" });
+//   }
+//   try {
+//     const existingUser = await User.findOne({ email });
+//     if (existingUser) {
+//       return res.json({ success: false, message: "User already exists" });
+//     }
+//     const hashedPassword = await bcrypt.hash(password, 10);
+//     const NewUser = new User({ email, username, password: hashedPassword });
+//     await NewUser.save();
+//     const token = jsonWebToken.sign(
+//       { id: NewUser._id },
+//       process.env.JWT_SECRET,
+//       { expiresIn: "1d" }
+//     );
+// res.cookie("token", token, {
+//   httpOnly: true,
+//   secure: true,
+//   sameSite: "None",
+//   maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+// });
+
+
+//     console.log("Returning signup success response");
+//    return res.json({ success:true,message:"Signup Successfully completed"});
+//   } catch (error) {
+//     res.json({ success: false, message: error.message });
+//   }
+// });
+
+// router.post("/login", async (req, res) => {
+//    console.log("Login route hit");
+//   const { username, password } = req.body;
+//   if (!username || !password) {
+//     return res.json({
+//       success: false,
+//       message: "username and password are required",
+//     });
+//   }
+//   try {
+//     const user = await User.findOne({ username });
+//     if (!user) {
+//       return res.json({ success: false, message: "invalid username" });
+//     }
+//     const isMatch = await bcrypt.compare(password, user.password);
+//     if (!isMatch) {
+//       return res.json({ success: false, message: "invalid password" });
+//     }
+//     const token = jsonWebToken.sign({ id: user._id }, process.env.JWT_SECRET, {
+//       expiresIn: "1d",
+//     });
+// res.cookie("token", token, {
+//   httpOnly: true,
+//   secure: true,
+//   sameSite: "None",
+//   maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+// });
+
+//     return res.json({ success: true ,message:"Login successfully"});
+//   } catch (error) {
+//     return res.json({ success: false, message: error.message });
+//   }
+// });
+
+// router.post("/logout", async (req, res) => {
+//   try {
+//     res.clearCookie("token", {
+//   httpOnly: true,
+//   secure: true,
+//   sameSite: "None",
+//   maxAge: 7 * 24 * 60 * 60 * 1000
+//     });
+//     return res.json({ success: true, message: "Logged Out" });
+//   } catch (error) {
+//     return res.json({ success: false, message: error.message });
+//   }
+// });
+
+// // verify
+// router.get("/verify", (req, res) => {
+//   const token = req.cookies.token;
+
+//   if (!token) {
+//     return res.json({ loggedIn: false });
+//   }
+
+//   try {
+//     const decoded = jsonWebToken.verify(token, process.env.JWT_SECRET);
+//     return res.json({ loggedIn: true, user: decoded }); // optionally return user info
+//   } catch (error) {
+//     return res.json({ loggedIn: false });
+//   }
+// });
+
+// module.exports = router
+
+// backend/clerkAuth.js
 const express = require("express");
-const router = express.Router()
-const User = require("../model/user/user");
+const { requireAuth } = require("@clerk/express");
+const router = express.Router();
 
-router.post("/register", async (req, res) => {
-    console.log("Register route hit");
-  const { email, username, password } = req.body;
-  if (!username || !email || !password) {
-    return res.json({ success: false, message: "Missing" });
-  }
-  try {
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.json({ success: false, message: "User already exists" });
-    }
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const NewUser = new User({ email, username, password: hashedPassword });
-    await NewUser.save();
-    const token = jsonWebToken.sign(
-      { id: NewUser._id },
-      process.env.JWT_SECRET,
-      { expiresIn: "1d" }
-    );
-res.cookie("token", token, {
-  httpOnly: true,
-  secure: true,
-  sameSite: "None",
-  maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+// Protect any route with Clerk authentication
+router.get("/verify", requireAuth(), (req, res) => {
+  // Clerk stores the user info in req.auth
+  return res.json({
+    loggedIn: true,
+    userId: req.auth.userId,
+    sessionId: req.auth.sessionId
+  });
 });
 
-
-    console.log("Returning signup success response");
-   return res.json({ success:true,message:"Signup Successfully completed"});
-  } catch (error) {
-    res.json({ success: false, message: error.message });
-  }
+// Example protected route
+router.get("/protected", requireAuth(), (req, res) => {
+  res.json({
+    message: "You have access to protected data!",
+    userId: req.auth.userId
+  });
 });
 
-router.post("/login", async (req, res) => {
-   console.log("Login route hit");
-  const { username, password } = req.body;
-  if (!username || !password) {
-    return res.json({
-      success: false,
-      message: "username and password are required",
-    });
-  }
-  try {
-    const user = await User.findOne({ username });
-    if (!user) {
-      return res.json({ success: false, message: "invalid username" });
-    }
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.json({ success: false, message: "invalid password" });
-    }
-    const token = jsonWebToken.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
-res.cookie("token", token, {
-  httpOnly: true,
-  secure: true,
-  sameSite: "None",
-  maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+// Public route
+router.get("/public", (req, res) => {
+  res.json({ message: "Anyone can see this" });
 });
 
-    return res.json({ success: true ,message:"Login successfully"});
-  } catch (error) {
-    return res.json({ success: false, message: error.message });
-  }
-});
-
-router.post("/logout", async (req, res) => {
-  try {
-    res.clearCookie("token", {
-  httpOnly: true,
-  secure: true,
-  sameSite: "None",
-  maxAge: 7 * 24 * 60 * 60 * 1000
-    });
-    return res.json({ success: true, message: "Logged Out" });
-  } catch (error) {
-    return res.json({ success: false, message: error.message });
-  }
-});
-
-// verify
-router.get("/verify", (req, res) => {
-  const token = req.cookies.token;
-
-  if (!token) {
-    return res.json({ loggedIn: false });
-  }
-
-  try {
-    const decoded = jsonWebToken.verify(token, process.env.JWT_SECRET);
-    return res.json({ loggedIn: true, user: decoded }); // optionally return user info
-  } catch (error) {
-    return res.json({ loggedIn: false });
-  }
-});
-
-module.exports = router
+module.exports = router;
