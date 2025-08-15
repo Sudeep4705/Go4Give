@@ -24,11 +24,11 @@ router.post("/register", async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
-res.cookie("token", token, {
+res.cookie("token", jwtToken, {
   httpOnly: true,
-  secure: true,
-  sameSite: "None",
-  maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+  secure: process.env.NODE_ENV === "production", // only send over HTTPS in prod
+  sameSite: "None", // allow cross-site cookies (needed if frontend & backend are on different domains)
+  maxAge: 24 * 60 * 60 * 1000 // 1 day
 });
 
 
@@ -60,11 +60,11 @@ router.post("/login", async (req, res) => {
     const token = jsonWebToken.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
-res.cookie("token", token, {
+res.cookie("token", jwtToken, {
   httpOnly: true,
-  secure: true,
-  sameSite: "None",
-  maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+  secure: process.env.NODE_ENV === "production", // only send over HTTPS in prod
+  sameSite: "None", // allow cross-site cookies (needed if frontend & backend are on different domains)
+  maxAge: 24 * 60 * 60 * 1000 // 1 day
 });
 
     return res.json({ success: true ,message:"Login successfully"});
@@ -77,9 +77,9 @@ router.post("/logout", async (req, res) => {
   try {
     res.clearCookie("token", {
   httpOnly: true,
-  secure: true,
-  sameSite: "None",
-  maxAge: 7 * 24 * 60 * 60 * 1000
+  secure: process.env.NODE_ENV === "production", // only send over HTTPS in prod
+  sameSite: "None", // allow cross-site cookies (needed if frontend & backend are on different domains)
+  maxAge: 24 * 60 * 60 * 1000 // 1 day
     });
     return res.json({ success: true, message: "Logged Out" });
   } catch (error) {
