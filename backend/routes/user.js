@@ -24,7 +24,7 @@ router.post("/register", async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
-res.cookie("token", jwtToken, {
+res.cookie("token", token, {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production", // only send over HTTPS in prod
   sameSite: "None", // allow cross-site cookies (needed if frontend & backend are on different domains)
@@ -60,7 +60,7 @@ router.post("/login", async (req, res) => {
     const token = jsonWebToken.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
-res.cookie("token", jwtToken, {
+res.cookie("token", token, {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production", // only send over HTTPS in prod
   sameSite: "None", // allow cross-site cookies (needed if frontend & backend are on different domains)
