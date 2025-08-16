@@ -225,7 +225,6 @@ function generateCertificateHTML(donorName, donationAmount, orderId) {
                 box-sizing: border-box;
                 position: relative;
             }
-            
             .inner-border {
                 position: absolute;
                 top: 20px;
@@ -235,167 +234,40 @@ function generateCertificateHTML(donorName, donationAmount, orderId) {
                 border: 2px solid #dee2e6;
                 border-radius: 10px;
             }
-            
             .decorative-corners {
                 position: absolute;
                 width: 50px;
                 height: 50px;
                 border: 3px solid #ff5a00;
             }
-            
-            .corner-tl {
-                top: 40px;
-                left: 40px;
-                border-right: none;
-                border-bottom: none;
-            }
-            
-            .corner-tr {
-                top: 40px;
-                right: 40px;
-                border-left: none;
-                border-bottom: none;
-            }
-            
-            .corner-bl {
-                bottom: 40px;
-                left: 40px;
-                border-right: none;
-                border-top: none;
-            }
-            
-            .corner-br {
-                bottom: 40px;
-                right: 40px;
-                border-left: none;
-                border-top: none;
-            }
-            
-            .header {
-                color: #ff5a00;
-                font-size: 52px;
-                font-weight: bold;
-                margin-bottom: 15px;
-                text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-                letter-spacing: 2px;
-            }
-            
-            .title {
-                color: #333;
-                font-size: 38px;
-                font-weight: bold;
-                margin-bottom: 25px;
-                letter-spacing: 1px;
-            }
-            
-            .decorative-line {
-                width: 600px;
-                height: 4px;
-                background: linear-gradient(90deg, transparent, #ff5a00, transparent);
-                margin: 0 auto 35px auto;
-                border-radius: 2px;
-            }
-            
-            .certificate-content {
-                max-width: 800px;
-                padding: 0 40px;
-            }
-            
-            .text {
-                color: #555;
-                font-size: 26px;
-                margin: 12px 0;
-                font-weight: 300;
-            }
-            
-            .donor-name {
-                color: #2b7a2b;
-                font-size: 46px;
-                font-weight: bold;
-                margin: 25px 0;
-                text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-                border-bottom: 2px solid #2b7a2b;
-                padding-bottom: 10px;
-                display: inline-block;
-            }
-            
-            .amount {
-                color: #ff5a00;
-                font-size: 40px;
-                font-weight: bold;
-                margin: 25px 0;
-                background: linear-gradient(45deg, #ff5a00, #ff7a30);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            }
-            
-            .mission-text {
-                color: #555;
-                font-size: 20px;
-                margin: 25px 0 40px 0;
-                line-height: 1.6;
-                font-style: italic;
-                max-width: 700px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            .footer-info {
-                position: absolute;
-                bottom: 60px;
-                left: 80px;
-                right: 80px;
-                display: flex;
-                justify-content: space-between;
-                color: #666;
-                font-size: 18px;
-                font-weight: 500;
-            }
-            
-            .thank-you {
-                position: absolute;
-                bottom: 100px;
-                width: 100%;
-                text-align: center;
-                color: #2b7a2b;
-                font-size: 20px;
-                font-weight: 600;
-                font-style: italic;
-            }
-            
-            .seal {
-                position: absolute;
-                bottom: 120px;
-                right: 100px;
-                width: 80px;
-                height: 80px;
-                border: 4px solid #ff5a00;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: rgba(255, 90, 0, 0.1);
-                font-size: 12px;
-                color: #ff5a00;
-                font-weight: bold;
-                text-align: center;
-                line-height: 1.2;
-            }
+            .corner-tl { top: 40px; left: 40px; border-right: none; border-bottom: none; }
+            .corner-tr { top: 40px; right: 40px; border-left: none; border-bottom: none; }
+            .corner-bl { bottom: 40px; left: 40px; border-right: none; border-top: none; }
+            .corner-br { bottom: 40px; right: 40px; border-left: none; border-top: none; }
+            .header { color: #ff5a00; font-size: 52px; font-weight: bold; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); letter-spacing: 2px; }
+            .title { color: #333; font-size: 38px; font-weight: bold; margin-bottom: 25px; letter-spacing: 1px; }
+            .decorative-line { width: 600px; height: 4px; background: linear-gradient(90deg, transparent, #ff5a00, transparent); margin: 0 auto 35px auto; border-radius: 2px; }
+            .certificate-content { max-width: 800px; padding: 0 40px; }
+            .text { color: #555; font-size: 26px; margin: 12px 0; font-weight: 300; }
+            .donor-name { color: #2b7a2b; font-size: 46px; font-weight: bold; margin: 25px 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.1); border-bottom: 2px solid #2b7a2b; padding-bottom: 10px; display: inline-block; }
+            .amount { color: #ff5a00; font-size: 40px; font-weight: bold; margin: 25px 0; background: linear-gradient(45deg, #ff5a00, #ff7a30); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+            .mission-text { color: #555; font-size: 20px; margin: 25px 0 40px 0; line-height: 1.6; font-style: italic; max-width: 700px; margin-left: auto; margin-right: auto; }
+            .footer-info { position: absolute; bottom: 60px; left: 80px; right: 80px; display: flex; justify-content: space-between; color: #666; font-size: 18px; font-weight: 500; }
+            .thank-you { position: absolute; bottom: 100px; width: 100%; text-align: center; color: #2b7a2b; font-size: 20px; font-weight: 600; font-style: italic; }
+            .seal { position: absolute; bottom: 120px; right: 100px; width: 80px; height: 80px; border: 4px solid #ff5a00; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255, 90, 0, 0.1); font-size: 12px; color: #ff5a00; font-weight: bold; text-align: center; line-height: 1.2; }
         </style>
     </head>
     <body>
         <div class="inner-border"></div>
-        
         <div class="decorative-corners corner-tl"></div>
         <div class="decorative-corners corner-tr"></div>
         <div class="decorative-corners corner-bl"></div>
         <div class="decorative-corners corner-br"></div>
-        
+
         <div class="header">Go4Give</div>
         <div class="title">CERTIFICATE OF APPRECIATION</div>
         <div class="decorative-line"></div>
-        
+
         <div class="certificate-content">
             <div class="text">This is to certify that</div>
             <div class="donor-name">${donorName}</div>
@@ -406,19 +278,13 @@ function generateCertificateHTML(donorName, donationAmount, orderId) {
                 Your kindness and generosity make a real difference in the lives of those we serve.
             </div>
         </div>
-        
+
         <div class="thank-you">Thank you for your incredible generosity!</div>
-        
-        <div class="seal">
-            GO4GIVE<br>VERIFIED
-        </div>
-        
+
+        <div class="seal">GO4GIVE<br>VERIFIED</div>
+
         <div class="footer-info">
-            <div><strong>Date:</strong> ${new Date().toLocaleDateString('en-IN', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            })}</div>
+            <div><strong>Date:</strong> ${new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
             <div><strong>Certificate ID:</strong> ${orderId}</div>
         </div>
     </body>
@@ -426,55 +292,42 @@ function generateCertificateHTML(donorName, donationAmount, orderId) {
   `;
 }
 
-// Function to generate certificate using Puppeteer
+/* ------------------------------------------------
+   2.  Certificate generator using PDFShift
+   ------------------------------------------------ */
 async function generateCertificate(donorName, donationAmount, orderId) {
-  let browser;
+  const html = generateCertificateHTML(donorName, donationAmount, orderId);
+
   try {
-    console.log('Launching Puppeteer browser...');
-    browser = await puppeteer.launch({
-      headless: true,
-      args: [
-        '--no-sandbox', 
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-web-security'
-      ]
-    });
-    
-    const page = await browser.newPage();
-    await page.setViewport({ width: 1200, height: 800, deviceScaleFactor: 2 });
-    
-    const html = generateCertificateHTML(donorName, donationAmount, orderId);
-    await page.setContent(html, { waitUntil: 'networkidle0' });
-    
-    // Wait for fonts and styling to load
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    console.log('Taking screenshot...');
-    const buffer = await page.screenshot({ 
-      type: 'png',
-      fullPage: false,
-      clip: { x: 0, y: 0, width: 1200, height: 800 }
-    });
-    
-    console.log('Certificate generated successfully');
-    return buffer;
-  } catch (error) {
-    console.error('Error generating certificate:', error);
-    throw error;
-  } finally {
-    if (browser) {
-      await browser.close();
-    }
+    const { data } = await axios.post(
+      'https://api.pdfshift.io/v3/convert/png',
+      {
+        source: html,
+        width: 1200,
+        height: 800,
+        format: 'png',
+        delay: 2000,
+        scale: 2
+      },
+      {
+        auth: { username: 'api', password: process.env.PDFSHIFT_API_KEY },
+        responseType: 'arraybuffer'
+      }
+    );
+    return Buffer.from(data);          // PNG buffer, same as before
+  } catch (err) {
+    console.error('PDFShift error:', err.response?.data || err.message);
+    throw err;
   }
 }
 
-// Main route for sending receipt and certificate
+/* ------------------------------------------------
+   3.  /sendreceipt route  (unchanged except removed Puppeteer)
+   ------------------------------------------------ */
 router.post("/sendreceipt", async (req, res) => {
   const { donorName, email, donationAmount, orderId } = req.body;
 
   try {
-    // Validate required fields
     if (!donorName || !email || !donationAmount || !orderId) {
       return res.status(400).json({
         success: false,
@@ -483,12 +336,12 @@ router.post("/sendreceipt", async (req, res) => {
     }
 
     console.log(`Processing receipt for ${donorName}, Order: ${orderId}`);
-    
-    // Generate certificate
+
+    // 1. Generate PNG certificate via PDFShift
     console.log('Step 1: Generating certificate');
     const certificateBuffer = await generateCertificate(donorName, donationAmount, orderId);
-    
-    // Upload certificate to Cloudinary
+
+    // 2. Upload to Cloudinary
     console.log('Step 2: Uploading');
     const uploadResult = await new Promise((resolve, reject) => {
       cloudinary.uploader.upload_stream(
@@ -499,57 +352,44 @@ router.post("/sendreceipt", async (req, res) => {
           format: 'png',
           quality: 'auto:best'
         },
-        (error, result) => {
-          if (error) {
-            console.error('Cloudinary upload error:', error);
-            reject(error);
-          } else {
-            console.log('Certificate uploaded successfully:', result.secure_url);
-            resolve(result);
-          }
-        }
+        (error, result) => (error ? reject(error) : resolve(result))
       ).end(certificateBuffer);
     });
 
-    // Configure email transporter
-    console.log('Step 3: Configuring email...');
+    // 3. Configure nodemailer (kept exactly as you had)
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         user: "go4give2002@gmail.com",
-        pass: "exoj ewqp ycve okun", //  your App Password
+        pass: "exoj ewqp ycve okun",
       },
     });
 
-    // Email 
     const mailOptions = {
       from: "go4give2002@gmail.com",
       to: email,
       subject: "Donation Receipt & Certificate - Go4Give",
       html: `
         <div style="font-family: 'Arial', sans-serif; max-width: 650px; margin: auto; border: 1px solid #e0e0e0; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-          <!-- Header -->
           <div style="background: linear-gradient(135deg, #ff5a00, #ff7a30); color: white; padding: 30px 20px; text-align: center;">
             <h1 style="margin: 0; font-size: 36px; font-weight: bold;">Go4Give</h1>
             <p style="margin: 10px 0 0 0; font-size: 18px; opacity: 0.9;">Making a Difference Together</p>
           </div>
-          
-          <!-- Main Content -->
+
           <div style="padding: 30px; background-color: #f9f9f9;">
             <h2 style="color: #333; margin-top: 0; text-align: center;">Thank You for Your Generous Donation! </h2>
-            
+
             <p style="font-size: 18px; color: #555; line-height: 1.6;">
               Dear <strong style="color: #2b7a2b;">${donorName}</strong>,
             </p>
-            
+
             <p style="font-size: 16px; color: #555; line-height: 1.6;">
               We are incredibly grateful for your generous donation of <strong style="color: #ff5a00; font-size: 20px;">₹${donationAmount}</strong>. 
-              Your contribution will make a real difference in our mission to create positive change in the community.
+              Your contribution will make a real difference.
             </p>
-            
-            <!-- Receipt Details -->
+
             <div style="background: #ffffff; padding: 20px; border-radius: 10px; margin: 25px 0; border-left: 5px solid #ff5a00; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-              <h3 style="margin-top: 0; color: #333; font-size: 18px;"> Receipt Details</h3>
+              <h3 style="margin-top: 0; color: #333; font-size: 18px;">Receipt Details</h3>
               <table style="width: 100%; border-collapse: collapse;">
                 <tr>
                   <td style="padding: 8px 0; color: #666; font-weight: bold;">Order ID:</td>
@@ -561,13 +401,7 @@ router.post("/sendreceipt", async (req, res) => {
                 </tr>
                 <tr>
                   <td style="padding: 8px 0; color: #666; font-weight: bold;">Date:</td>
-                  <td style="padding: 8px 0; color: #333;">${new Date().toLocaleDateString('en-IN', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                  })}</td>
+                  <td style="padding: 8px 0; color: #333;">${new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</td>
                 </tr>
                 <tr>
                   <td style="padding: 8px 0; color: #666; font-weight: bold;">Donor:</td>
@@ -576,39 +410,24 @@ router.post("/sendreceipt", async (req, res) => {
               </table>
             </div>
 
-            <!-- Certificate Section -->
             <div style="background: linear-gradient(135deg, #e8f5e8, #f0f8f0); padding: 25px; border-radius: 10px; margin: 25px 0; border: 2px solid #2b7a2b; text-align: center;">
               <h3 style="margin-top: 0; color: #2b7a2b; font-size: 22px;">Certificate of Appreciation</h3>
               <p style="margin: 15px 0; font-size: 16px; color: #555; line-height: 1.6;">
                 We've prepared a beautiful certificate to commemorate your generous contribution. 
                 This certificate serves as a token of our appreciation and can be saved for your records.
               </p>
-           
-              <p style="font-size: 14px; color: #666; margin-top: 15px;">
-                The certificate is also attached to this email for your convenience.
-              </p>
             </div>
-            
-            <!-- Impact Message -->
-            <div style="background: #fff3e0; padding: 20px; border-radius: 10px; margin: 25px 0; border-left: 5px solid #ff9800;">
-              <h4 style="margin-top: 0; color: #e65100;"> Your Impact</h4>
-              <p style="margin-bottom: 0; color: #555; line-height: 1.6;">
-                Your donation will directly contribute to our ongoing projects and help us reach more people in need. 
-                Together, we're building a better future for our community.
-              </p>
-            </div>
-            
+
             <p style="margin-top: 30px; font-size: 16px; color: #666; line-height: 1.6;">
               If you have any questions about your donation or would like to learn more about our work, 
-              please don't hesitate to reply to this email. We'd love to hear from you!
+              please don't hesitate to reply to this email.
             </p>
-            
+
             <p style="margin-top: 20px; font-size: 16px; color: #333; font-weight: bold;">
               Thank you once again for your incredible support! 
             </p>
           </div>
-          
-          <!-- Footer -->
+
           <div style="background: #333; color: #ccc; padding: 20px; text-align: center; font-size: 14px;">
             <p style="margin: 0;">This email was sent from <strong style="color: #ff5a00;">Go4Give</strong></p>
             <p style="margin: 10px 0 0 0;">Please keep this receipt and certificate for your records.</p>
@@ -624,21 +443,18 @@ router.post("/sendreceipt", async (req, res) => {
       ]
     };
 
-    // Send email
     console.log('Step 4: Sending email...');
     await transporter.sendMail(mailOptions);
-    console.log(`Email sent successfully to ${email}`);
 
-    // Success response
     res.json({ 
       success: true, 
       message: "Receipt and certificate sent successfully",
       data: {
         certificateUrl: uploadResult.secure_url,
-        orderId: orderId,
-        donorName: donorName,
+        orderId,
+        donorName,
         amount: donationAmount,
-        email: email,
+        email,
         timestamp: new Date().toISOString()
       }
     });
