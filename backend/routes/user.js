@@ -26,9 +26,9 @@ router.post("/register", async (req, res) => {
     );
 res.cookie("token", token, {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production", // only send over HTTPS in prod
-  sameSite: "None", // allow cross-site cookies (needed if frontend & backend are on different domains)
-  maxAge: 24 * 60 * 60 * 1000 // 1 day
+  secure: true,          // always true in production
+  sameSite: "None",
+  maxAge: 24 * 60 * 60 * 1000
 });
 
 
@@ -62,9 +62,9 @@ router.post("/login", async (req, res) => {
     });
 res.cookie("token", token, {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production", // only send over HTTPS in prod
-  sameSite: "None", // allow cross-site cookies (needed if frontend & backend are on different domains)
-  maxAge: 24 * 60 * 60 * 1000 // 1 day
+  secure: true,          // always true in production
+  sameSite: "None",
+  maxAge: 24 * 60 * 60 * 1000
 });
 
     return res.json({ success: true ,message:"Login successfully"});
@@ -77,9 +77,9 @@ router.post("/logout", async (req, res) => {
   try {
     res.clearCookie("token", {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production", // only send over HTTPS in prod
-  sameSite: "None", // allow cross-site cookies (needed if frontend & backend are on different domains)
-  maxAge: 24 * 60 * 60 * 1000 // 1 day
+  secure: true,          // always true in production
+  sameSite: "None",
+  maxAge: 24 * 60 * 60 * 1000
     });
     return res.json({ success: true, message: "Logged Out" });
   } catch (error) {
