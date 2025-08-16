@@ -252,7 +252,7 @@ async function generateCertificate(donorName, donationAmount, orderId) {
       'https://api.pdfshift.io/v3/convert/png',
       {
         source: html,
-        width: 1200,
+       
         delay: 2000,
        
       },
