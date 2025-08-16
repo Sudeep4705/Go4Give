@@ -29,8 +29,9 @@ main()
 
 // Middleware
 app.use(cookieParser());
-app.use(cors({ 
-  origin:"https://go4give.netlify.app", credentials: true 
+app.use(cors({
+  origin: "https://go4give.netlify.app",
+  credentials: true
 }));
 // These parsers are safe for non-multipart routes
 app.use(express.json());
