@@ -305,9 +305,7 @@ async function generateCertificate(donorName, donationAmount, orderId) {
       {
         source: html,
         width: 1200,
-      
-        format: 'png',
-        delay: 2000,
+      delay: 2000,
     
       },
       {
