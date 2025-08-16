@@ -252,9 +252,9 @@ async function generateCertificate(donorName, donationAmount, orderId) {
       'https://api.pdfshift.io/v3/convert/png',
       {
         source: html,
-       
-        delay: 2000,
-       
+      
+      delay: 2000,
+    
       },
       {
         auth: { username: 'api', password: process.env.PDFSHIFT_API_KEY },
