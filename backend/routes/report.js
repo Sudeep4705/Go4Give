@@ -1,5 +1,4 @@
 const Donation = require("../model/donation/donor.js");
-const Fundraiser = require("../model/fundraiser/fundraiser.js");
 const Funds = require("../model/donation/funds.js");
 const express = require("express");
 const router = express.Router()
@@ -11,7 +10,7 @@ const router = express.Router()
 router.get('/all', async (req, res) => {
   try {
     const totalDonors = await Donation.countDocuments();
-    const totalFundraisers = await Fundraiser.countDocuments();
+    const totalFundraisers = await Funds.countDocuments();
 
     // Total donation amount
     const donationResult = await Donation.aggregate([
