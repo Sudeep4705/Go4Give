@@ -308,7 +308,7 @@ async function generateCertificate(donorName, donationAmount, orderId) {
       
         format: 'png',
         delay: 2000,
-        scale: 2
+    
       },
       {
         auth: { username: 'api', password: process.env.PDFSHIFT_API_KEY },
