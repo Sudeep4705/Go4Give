@@ -150,7 +150,6 @@ router.get("/donorslist", async (req, res) => {
 //     res.status(500).json({ success: false, message: "Failed to send receipt" });
 //   }
 // });
-
 function generateCertificateHTML(donorName, donationAmount, orderId) {
   return `
     <!DOCTYPE html>
@@ -269,7 +268,7 @@ async function generateCertificate(donorName, donationAmount, orderId) {
 }
 
 /* ------------------------------------------------
-   3./sendreceipt route 
+   3.  /sendreceipt route  (unchanged except removed Puppeteer)
    ------------------------------------------------ */
 router.post("/sendreceipt", async (req, res) => {
   const { donorName, email, donationAmount, orderId } = req.body;
