@@ -10,8 +10,9 @@ const nodemailer = require("nodemailer");
 const { storage } = require("../cloudConfig.js");
 const multer = require("multer");
 const upload = multer({storage});
-const puppeteer = require('puppeteer');
+
 const { cloudinary } = require("../cloudConfig.js");
+const axios    = require('axios');
 // fundraiser
 
 router.post("/add", upload.single("image"), async (req, res) => {
