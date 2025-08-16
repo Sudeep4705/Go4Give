@@ -5,10 +5,8 @@ const instance = require("../razorpay");
 const Donation = require("../model/donation/donor.js");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
-
 const { cloudinary } = require("../cloudConfig.js");
 // payment for orphanage by donor
-
 router.post("/donate/:id", authenticateUser, async (req, res) => {
   try {
     const { donorName, email, phone, donationAmount } = req.body;
@@ -255,7 +253,6 @@ async function generateCertificate(donorName, donationAmount, orderId) {
       {
         source: html,
         width: 1200,
-        height: 800,
         format: 'png',
         delay: 2000,
         scale: 2
@@ -273,7 +270,7 @@ async function generateCertificate(donorName, donationAmount, orderId) {
 }
 
 /* ------------------------------------------------
-   3.  /sendreceipt route  (unchanged except removed Puppeteer)
+   3./sendreceipt route 
    ------------------------------------------------ */
 router.post("/sendreceipt", async (req, res) => {
   const { donorName, email, donationAmount, orderId } = req.body;
@@ -425,6 +422,5 @@ router.get("/delete/:id",async(req,res)=>{
   let {id} = req.params;
  await Donation.findByIdAndDelete(id)
  res.json({message:"Donor deleted"});
-  
 })
 module.exports = router; 
