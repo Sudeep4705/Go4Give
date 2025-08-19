@@ -162,7 +162,7 @@ function Navbar() {
 
             {isLoggedIn && (
               <li className="nav-item">
-                <button className="btn btn-outline-danger ms-2" onClick={handleLogout}>
+                <button className="btn btn-outline-primary ms-2" onClick={handleLogout}>
                   Logout
                 </button>
               </li>
