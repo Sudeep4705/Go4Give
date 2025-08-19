@@ -160,8 +160,8 @@ function Navbar() {
               </ul>
             </li>
 
-         {isLoggedIn && (
-  <li className="nav-item">
+{isLoggedIn && (
+  <li className="nav-item d-flex align-items-center">
     <button 
       className="btn btn-primary ms-3 px-3 py-1 fw-semibold rounded-pill shadow-sm" 
       onClick={handleLogout}
