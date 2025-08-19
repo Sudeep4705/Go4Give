@@ -160,13 +160,17 @@ function Navbar() {
               </ul>
             </li>
 
-            {isLoggedIn && (
-              <li className="nav-item">
-                <button className="btn btn-outline-primary ms-2" onClick={handleLogout}>
-                  Logout
-                </button>
-              </li>
-            )}
+         {isLoggedIn && (
+  <li className="nav-item">
+    <button 
+      className="btn btn-primary ms-3 px-3 py-1 fw-semibold rounded-pill shadow-sm" 
+      onClick={handleLogout}
+    >
+      Logout
+    </button>
+  </li>
+)}
+
           </ul>
         </div>
       </div>
