@@ -13,9 +13,10 @@ export default function Chat() {
     setInput("");
 
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/chat/message`, {
-        message: input,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/chat/message`,
+        { message: input }
+      );
       const botMsg = { role: "assistant", content: res.data.reply };
       setMessages((prev) => [...prev, botMsg]);
     } catch (error) {
@@ -23,155 +24,174 @@ export default function Chat() {
     }
   };
 
+  /* -------------  UI ONLY  ------------- */
   return (
-    <div
-      style={{
-        height: "100vh",
-        backgroundImage: `url("/images/chatbot.jpg")`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        fontFamily: "Poppins, sans-serif",
-        padding: "1rem",
-        position: "relative",
-      }}
-    >
-      {/* Overlay with tagline */}
-      <div
-        style={{
-          position: "absolute",
-          top: "20px",
-          textAlign: "center",
-          color: "#fff",
-          textShadow: "0 2px 8px rgba(0,0,0,0.6)",
-          marginTop:"3rem"
-        
-        }}
-      >
-   
-        <p style={{ maxWidth: "700px", margin: "0 auto", fontSize: "1rem", opacity: 0.9 }}>
-          Ask questions, get instant help, and learn more about our mission.
-        </p>
+    <div className="chat-page">
+      {/* animated gradient background */}
+      <style>{`
+        @keyframes gradientShift {
+          0%   { background-position: 0% 50%; }
+          50%  { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .chat-page {
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-family: 'Poppins', sans-serif;
+          padding: 1rem;
+          position: relative;
+          background: linear-gradient(-45deg,#1a2a6c,#b21f1f,#fdbb2d,#4E9AF1,#5563DE);
+          background-size: 400% 400%;
+          animation: gradientShift 20s ease infinite;
+        }
+        .chat-page::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: rgba(0,0,0,.35);
+        }
+        /* glass-morphic card */
+        .chat-card {
+          width: 100%;
+          max-width: 650px;
+          height: 80vh;
+          background: rgba(255,255,255,.15);
+          backdrop-filter: blur(20px) saturate(120%);
+          border: 1px solid rgba(255,255,255,.18);
+          border-radius: 24px;
+          box-shadow: 0 8px 32px rgba(0,0,0,.35);
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+          z-index: 2;
+        }
+        .chat-header {
+          padding: 16px;
+          background: rgba(255,255,255,.1);
+          color: #fff;
+          font-weight: 600;
+          font-size: 1.15rem;
+          text-align: center;
+          letter-spacing: .5px;
+        }
+        .messages {
+          flex: 1;
+          padding: 14px;
+          overflow-y: auto;
+          scroll-behavior: smooth;
+        }
+        .msg {
+          display: flex;
+          margin-bottom: 12px;
+          animation: fadeIn .35s ease;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .msg.user { justify-content: flex-end; }
+        .msg.assistant { justify-content: flex-start; }
+        .bubble {
+          padding: 12px 18px;
+          max-width: 75%;
+          word-break: break-word;
+          font-size: .95rem;
+          line-height: 1.4;
+          border-radius: 20px;
+          box-shadow: 0 4px 12px rgba(0,0,0,.08);
+        }
+        .user .bubble {
+          background: linear-gradient(135deg,#5563DE,#4E9AF1);
+          color: #fff;
+          border-bottom-right-radius: 6px;
+        }
+        .assistant .bubble {
+          background: rgba(255,255,255,.85);
+          color: #111;
+          border-bottom-left-radius: 6px;
+        }
+        .chat-footer {
+          display: flex;
+          gap: 8px;
+          padding: 14px;
+          background: rgba(255,255,255,.1);
+          border-top: 1px solid rgba(255,255,255,.18);
+        }
+        .chat-input {
+          flex: 1;
+          padding: 12px 16px;
+          border: none;
+          border-radius: 12px;
+          font-size: 1rem;
+          outline: none;
+          background: rgba(255,255,255,.65);
+          transition: background .25s;
+        }
+        .chat-input:focus {
+          background: rgba(255,255,255,.9);
+        }
+        .send-btn {
+          background: linear-gradient(135deg,#5563DE,#4E9AF1);
+          color: #fff;
+          border: none;
+          padding: 12px 22px;
+          border-radius: 12px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: transform .2s, box-shadow .25s;
+          box-shadow: 0 4px 12px rgba(85,99,222,.35);
+        }
+        .send-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 18px rgba(85,99,222,.5);
+        }
+        .send-btn:active {
+          transform: translateY(0);
+        }
+        .tagline {
+          position: absolute;
+          top: 2.5rem;
+          text-align: center;
+          color: #fff;
+          text-shadow: 0 2px 8px rgba(0,0,0,.6);
+          z-index: 1;
+        }
+        .tagline p {
+          max-width: 700px;
+          margin: 0 auto;
+          font-size: 1rem;
+          opacity: .9;
+        }
+      `}</style>
+
+      <div className="tagline">
+        <p>Ask questions, get instant help, and learn more about our mission.</p>
       </div>
 
-      {/* Chat container */}
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "650px",
-          height: "80vh",
-          background: "rgba(255, 255, 255, 0.25)",
-          backdropFilter: "blur(12px)",
-          borderRadius: "20px",
-          boxShadow: "0 8px 32px rgba(0,0,0,0.25)",
-          display: "flex",
-          flexDirection: "column",
-          overflow: "hidden",
-          zIndex: 2,
-          marginTop:"4rem"
-        }}
-      >
-        {/* Header */}
-        <div
-          style={{
-            padding: "14px",
-            background: "linear-gradient(90deg, #5563DE, #4E9AF1)",
-            color: "#fff",
-            fontWeight: "bold",
-            textAlign: "center",
-            fontSize: "1.2rem",
-          }}
-        >
-          💬 Go4Give Chat Assistant
-        </div>
+      <div className="chat-card">
+        <div className="chat-header">💬 Go4Give Chat Assistant</div>
 
-        {/* Messages */}
-        <div
-          style={{
-            flex: 1,
-            padding: "14px",
-            overflowY: "auto",
-          }}
-        >
+        <div className="messages">
           {messages.map((msg, i) => (
-            <div
-              key={i}
-              style={{
-                display: "flex",
-                justifyContent:
-                  msg.role === "user" ? "flex-end" : "flex-start",
-                marginBottom: "12px",
-              }}
-            >
-              <div
-                style={{
-                  background:
-                    msg.role === "user"
-                      ? "linear-gradient(135deg, #5563DE, #4E9AF1)"
-                      : "#ffffff",
-                  color: msg.role === "user" ? "#fff" : "#000",
-                  padding: "12px 16px",
-                  borderRadius:
-                    msg.role === "user"
-                      ? "18px 18px 0 18px"
-                      : "18px 18px 18px 0",
-                  maxWidth: "75%",
-                  wordWrap: "break-word",
-                  boxShadow: "0 4px 10px rgba(0,0,0,0.08)",
-                  fontSize: "1rem",
-                }}
-              >
-                {msg.content}
-              </div>
+            <div className={`msg ${msg.role}`} key={i}>
+              <div className="bubble">{msg.content}</div>
             </div>
           ))}
+          {/* auto-scroll anchor */}
+          <div style={{ float: "left", clear: "both" }} />
         </div>
 
-        {/* Input */}
-        <div
-          style={{
-            display: "flex",
-            borderTop: "1px solid rgba(255,255,255,0.3)",
-            padding: "12px",
-            background: "rgba(255, 255, 255, 0.15)",
-            backdropFilter: "blur(8px)",
-          }}
-        >
+        <div className="chat-footer">
           <input
+            className="chat-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
             placeholder="Type your message..."
-            style={{
-              flex: 1,
-              padding: "12px",
-              border: "1px solid #ccc",
-              borderRadius: "8px",
-              outline: "none",
-              fontSize: "1rem",
-              background: "rgba(255,255,255,0.8)",
-            }}
           />
-          <button
-            onClick={sendMessage}
-            style={{
-              marginLeft: "10px",
-              background: "linear-gradient(135deg, #5563DE, #4E9AF1)",
-              color: "#fff",
-              border: "none",
-              padding: "12px 18px",
-              borderRadius: "8px",
-              cursor: "pointer",
-              fontWeight: "bold",
-              fontSize: "1rem",
-              boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
-              transition: "transform 0.2s ease",
-            }}
-            onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
-            onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
-          >
+          <button className="send-btn" onClick={sendMessage}>
             Send
           </button>
         </div>
