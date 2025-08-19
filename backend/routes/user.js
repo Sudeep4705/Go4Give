@@ -1,4 +1,3 @@
-
 const bcrypt = require("bcryptjs");
 const jsonWebToken = require("jsonwebtoken");
 const express = require("express");

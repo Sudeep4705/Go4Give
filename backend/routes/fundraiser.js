@@ -10,7 +10,6 @@ const nodemailer = require("nodemailer");
 const { storage } = require("../cloudConfig.js");
 const multer = require("multer");
 const upload = multer({storage});
-
 const { cloudinary } = require("../cloudConfig.js");
 const axios    = require('axios');
 // fundraiser
@@ -26,7 +25,6 @@ router.post("/add", upload.single("image"), async (req, res) => {
         error: "No file uploaded" 
       });
     }
-
     console.log("Uploaded file:", image); 
     console.log("Request body:", req.body); 
 
@@ -53,7 +51,7 @@ router.post("/add", upload.single("image"), async (req, res) => {
 router.get("/show",async (req,res)=>{
 let data  = await  Fundraiser.find({})
 res.json(data)
-  })
+})
 
 // fundraiser donation
 router.post("/fundsdonation/donate/:id",authenticateUser,async (req, res) => {
