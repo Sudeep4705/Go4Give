@@ -24,7 +24,6 @@ const handlelogin = async(e)=>{
     withCredentials: true,
   });
  if (res.data.success) {
-   localStorage.setItem("token", res.data.token);
   alert(res.data.message)
       setlogin({ username: "", password: "" });
       navigate("/");
