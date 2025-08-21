@@ -3,6 +3,17 @@ const Admin = require("../model/admin/admin");
 const router = express.Router()
 const bcrypt = require("bcryptjs");
 const jsonWebToken = require("jsonwebtoken");
+const validateAdmin = require("../Schema")
+const ExpressError = require("../ExpressError")
+// validation schema
+const validateschema = (req,res,next)=>{
+let {error} =  validateAdmin.validate(req.body);
+if(error){
+  throw new ExpressError(400,error)
+}else{
+  next()
+}
+}
 
 // admin
 router.post("/register", async (req, res) => {

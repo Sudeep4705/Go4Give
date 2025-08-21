@@ -56,6 +56,11 @@ app.use("/api/chat", chatRoutes);
 // report
 app.use("/report",report)
 
+// middleware
+app.use((err,req,res,next)=>{
+  let {status=500,message="Something Wrong"} = err;
+  res.status(status).json(message)
+})
 // Start server
 app.listen(8000, () => {
   console.log("server is listening");
