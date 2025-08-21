@@ -37,7 +37,7 @@ router.post("/register", async (req, res) => {
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
       maxAge:  24 * 60 * 60 * 1000,
     });
-    res.status(201).json({ success: true, message: "Admin created", token });
+    res.status(201).json({ success: true, message: "Admin created" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: "Server error" });

@@ -32,7 +32,7 @@ res.cookie("token", token, {
 
 
     console.log("Returning signup success response");
-   return res.json({ success:true,message:"Signup Successfully completed",token});
+   return res.json({ success:true,message:"Signup Successfully completed"});
   } catch (error) {
     res.json({ success: false, message: error.message });
   }
@@ -66,7 +66,7 @@ res.cookie("token", token, {
   maxAge: 24 * 60 * 60 * 1000
 });
 
-    return res.json({ success: true ,message:"Login successfully",token});
+    return res.json({ success: true ,message:"Login successfully"});
   } catch (error) {
     return res.json({ success: false, message: error.message });
   }
