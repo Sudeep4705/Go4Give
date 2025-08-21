@@ -1,5 +1,5 @@
-import Signup from "../User/SignUp";
-import Feedback from "./Feedback";
+
+
 import Hero from "./Hero";
 import LeftSection from "./LeftSection";
 import Middle from "./Middle";
@@ -14,7 +14,7 @@ function HomePage() {
       <Hero />
       <LeftSection />
       <Middle />
-      <Feedback/>
+      
 
       {/* Floating Chat Icon */}
       <div
