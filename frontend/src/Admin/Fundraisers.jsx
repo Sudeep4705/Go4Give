@@ -6,7 +6,7 @@ import Fundraiser from "./AddFundrasier";
 function Fundraisers() {
   const [donors, setDonors] = useState([]);
 
-  const handleChange = async () => {
+const handleChange = async()=>{
     try {
       let res = await axios.get(`${import.meta.env.VITE_API_URL}/fundraiser/fundraiserlist`);
       setDonors(res.data);
@@ -15,21 +15,19 @@ function Fundraisers() {
     }
   };
 
-  useEffect(() => {
-    handleChange();
-  }, []);
+useEffect(()=>{
+handleChange();
+},[]);
 
-
-  const sendReceipt = async (donor) => {
+const sendReceipt=async(donor) =>{
   try {
     let res = await axios.post(`${import.meta.env.VITE_API_URL}/fundraiser/sendreceipt`, {
       donorName: donor.donorName,
       email: donor.email,
       donationAmount: donor.donationAmount,
       orderId: donor.orderId,
-    });
-
-    if (res.data.success) {
+});
+if (res.data.success) {
       alert("Receipt sent to " + donor.email);
     } else {
       alert("Failed to send receipt");
@@ -43,8 +41,6 @@ const handledelete =async (id)=>{
   let res = await  axios.get(`${import.meta.env.VITE_API_URL}/fundraiser/delete/${id}`)
   alert(res.data.message)
 }
-
-
   return (
     <div className="donar-container text-center">
       <h2 className="title">Fundraiser List</h2>

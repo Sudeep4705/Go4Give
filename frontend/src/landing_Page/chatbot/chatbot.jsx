@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
-
-export default function Chat() {
-  const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
-
-  const sendMessage = async () => {
+export default function Chat(){
+const [messages, setMessages] = useState([]);
+const [input, setInput] = useState("");
+const sendMessage = async () =>{
     if (!input.trim()) return;
-
-    const userMsg = { role: "user", content: input };
+    const userMsg = { role: "user", content: input};
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
-
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/chat/message`,
@@ -165,14 +161,11 @@ export default function Chat() {
           opacity: .9;
         }
       `}</style>
-
       <div className="tagline">
         <p>Ask questions, get instant help, and learn more about our mission.</p>
       </div>
-
       <div className="chat-card">
         <div className="chat-header">💬 Go4Give Chat Assistant</div>
-
         <div className="messages">
           {messages.map((msg, i) => (
             <div className={`msg ${msg.role}`} key={i}>

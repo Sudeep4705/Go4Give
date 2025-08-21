@@ -84,9 +84,7 @@
 // //     )
 // //   }
 
-// //   export default Navbar;
-
-
+////export default Navbar;
 import './Navbar.css';
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
@@ -114,6 +112,7 @@ function Navbar() {
         {},
         { withCredentials: true }
       );
+       localStorage.removeItem("token");
 
       setIsLoggedIn(false);
       navigate("/login");
@@ -161,23 +160,20 @@ function Navbar() {
             </li>
 
 {isLoggedIn && (
-  <li className="nav-item d-flex align-items-center">
+<li className="nav-item d-flex align-items-center">
     <button 
       className="btn btn-primary ms-3 px-3 py-1 fw-semibold rounded-pill shadow-sm" 
-      onClick={handleLogout}
-    >
+      onClick={handleLogout}>
       Logout
     </button>
-  </li>
+</li>
 )}
-
-          </ul>
-        </div>
-      </div>
-    </nav>
-  );
+</ul>
+</div>
+</div>
+</nav>
+);
 }
-
 export default Navbar;
 
 
