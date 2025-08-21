@@ -95,6 +95,11 @@ function Navbar() {
   const navigate = useNavigate();
 
   useEffect(() => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    setIsLoggedIn(true); // trust localStorage for UI state
+  } else {
     axios.get(`${import.meta.env.VITE_API_URL}/user/verify`, { withCredentials: true })
       .then((res) => {
         setIsLoggedIn(res.data.loggedIn);
@@ -103,7 +108,8 @@ function Navbar() {
         console.error("Auth check failed", err);
         setIsLoggedIn(false);
       });
-  }, []);
+  }
+}, []);
 
   const handleLogout = async () => {
     try {
