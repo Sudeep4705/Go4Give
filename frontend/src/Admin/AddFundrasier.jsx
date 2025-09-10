@@ -32,7 +32,7 @@ function AddFundraiser(){
             return;
         }
 
-        form.classList.add("was-validated");
+   
 
         // Debug: Check if image is selected
         if (!image) {

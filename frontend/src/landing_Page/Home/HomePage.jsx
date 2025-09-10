@@ -1,5 +1,3 @@
-
-
 import Hero from "./Hero";
 import LeftSection from "./LeftSection";
 import Middle from "./Middle";

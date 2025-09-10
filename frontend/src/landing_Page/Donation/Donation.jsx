@@ -3,8 +3,7 @@ import "./Donation.css";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import axios from "axios"
 import { useParams } from "react-router-dom";
-
-function Donation() {
+function Donation(){
  const { id } = useParams();
   console.log("Donation ID:", id);
   const [donation, setDonation] = useState({
