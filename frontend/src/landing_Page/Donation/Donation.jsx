@@ -57,7 +57,7 @@ const openRazorpay = (orderId, key, amount) => {
     key: key, // Razorpay Key ID from backend
     amount: amount * 100, // in paise
     currency: "INR",
-    name: "Your Charity Name",
+    name: "Go4Give",
     description: "Donation Payment",
     order_id: orderId, // orderId from backend
   
