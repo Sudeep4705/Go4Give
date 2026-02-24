@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Orphanage() {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true); // ✅ loading state
+  const [loading, setLoading] = useState(true); 
 
   const handlechange = async () => {
     try {
@@ -15,7 +15,7 @@ function Orphanage() {
     } catch (error) {
       console.error("Error fetching orphanage data:", error);
     } finally {
-      setLoading(false); // ✅ stop loading
+      setLoading(false); 
     }
   };
 
@@ -36,7 +36,7 @@ function Orphanage() {
       >
         <div className="container">
 
-          {/* ✅ SHOW LOADING SPINNER */}
+          {/*SHOW LOADING SPINNER */}
           {loading ? (
             <div className="text-center mt-5">
               <div className="spinner-border text-primary" role="status"></div>
@@ -87,5 +87,4 @@ function Orphanage() {
     </>
   );
 }
-
 export default Orphanage;
