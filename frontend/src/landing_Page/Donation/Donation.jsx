@@ -19,7 +19,7 @@ const [razorpay,setrazorpay] = useState({
     razorpay_signature:""
   })
 
-  const handleChange=(e)=>{
+const handleChange=(e)=>{
     setDonation({...donation,[e.target.name]:e.target.value})
   }
 
