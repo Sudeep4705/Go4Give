@@ -6,11 +6,20 @@ import "./ShowFundraiser.css"
 function Fundraiser(){
 
   const [funds,setfunds] = useState([])
+  const [loading, setLoading] = useState(true);
 
-const handlechange = async()=>{
-let res = await axios.get(`${import.meta.env.VITE_API_URL}/fundraiser/show`)
-setfunds(res.data)
-}
+const handlechange = async () => {
+  try {
+    let res = await axios.get(
+      `${import.meta.env.VITE_API_URL}/fundraiser/show`
+    );
+    setfunds(res.data);
+  } catch (err) {
+    console.error("Error fetching funds:", err);
+  } finally {
+    setLoading(false); 
+  }
+};
 
   const navigate  =  useNavigate()
   const handsubmit =(fundid)=>{
@@ -118,34 +127,42 @@ handlechange()
 
  
 <div className="container py-5">
-  <div className="row g-4">
-    {funds.map((fund) => {
-      const raised = fund.currentamount || 0;
-      const goal   = fund.goalamount   || 1;
-      const percent = Math.min((raised / goal) * 100, 100).toFixed(0);
+  {loading ? (
+    <div className="text-center mt-5">
+      <div className="spinner-border text-success" role="status"></div>
+      <p className="mt-3">Loading fundraisers...</p>
+    </div>
+  ) : (
+    <div className="row g-4">
+      {funds.map((fund) => {
+        const raised = fund.currentamount || 0;
+        const goal = fund.goalamount || 1;
+        const percent = Math.min((raised / goal) * 100, 100).toFixed(0);
 
-      return (
-        <div className="col-lg-4 col-md-6" key={fund._id}>
-          <div className="f-card">
-            <div className="f-card__img">
-              <img src={fund.image.url} alt={fund.cause} />
-            </div>
+        return (
+          <div className="col-lg-4 col-md-6" key={fund._id}>
+            <div className="f-card">
+              <div className="f-card__img">
+                <img src={fund.image.url} alt={fund.cause} />
+              </div>
 
-            <div className="f-card__body">
-              <h5 className="f-card__title">{fund.cause}</h5>
-              <p className="f-card__desc">{fund.description}</p>
+              <div className="f-card__body">
+                <h5 className="f-card__title">{fund.cause}</h5>
+                <p className="f-card__desc">{fund.description}</p>
 
-            
-
-              
-
-              <button className="f-card__btn" onClick={() => handsubmit(fund._id)}>Donate</button>
+                <button
+                  className="f-card__btn"
+                  onClick={() => handsubmit(fund._id)}
+                >
+                  Donate
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      );
-    })}
-  </div>
+        );
+      })}
+    </div>
+  )}
 </div>
 
 </>
